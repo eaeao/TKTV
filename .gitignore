@@ -52,3 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+tktv/settings_secret.py
+.idea
