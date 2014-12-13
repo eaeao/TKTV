@@ -1,0 +1,53 @@
+/* Common */
+html,body{width:100%;height:100%;background:#f5f5f5}
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+* {font-size:12px;font-family: 'Apple SD Gothic Neo','나눔고딕',NanumGothic,'맑은 고딕','Malgun Gothic','돋움',dotum,'굴림',gulim,applegothic,sans-serif;}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none;cursor:pointer;color:inherit;}
+a:hover,a:active,a:focus{text-decoration:underline;color:inherit;}
+
+.div_feed{margin:10px;background-color: #fff;border:1px solid #ddd;border-radius: 4px;-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);box-shadow: 0 1px 1px rgba(0,0,0,0.05);min-width:50px;min-height:50px;overflow:hidden}
+.div_feed i{position: relative;top: 1px;font-size: 14px;}
+
+/* Layout */
+.imgbtn{cursor:pointer}
+
+#wrap{position:relative;width:100%;min-width:1140px;min-height:100%;margin:0 auto;background: #fff;}
+
+#top_menu {position:absolute;width:100%;top:0;left:0;z-index: 20;background-color: #000;box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1),0 1px 0 0 rgba(0, 0, 0, 0.1);}
+#top_menu #content{position:relative;width:1140px;height: 45px;left:50%;margin-left:-570px;}
+#top_menu #content #ul_top_quick > li {line-height:45px;padding:0 10px;color:#aaa;border-right:1px solid #303030;cursor:pointer;float:left;}
+#top_menu #content #ul_top_quick > li:first-child {border-left:1px solid #303030}
+#top_menu #content #ul_top_quick > li:hover {background-color:RGBA(255,255,255,0.15);color:#FFF;font-style: normal}
+#top_menu #content #li_top_profile #img_profile_usericon {height: 35px;margin:5px;border-radius:41px;float:left}
+#top_menu #content #li_top_profile #span_profile_username {line-height:45px;padding: 0 5px;float:left}
+#top_menu #content #li_top_profile:hover {background-color:RGBA(255,255,255,0.15);color:#fff}
+#top_menu #content #p_top_date {position:absolute;top:0;left:50%;margin-left: -60px;width: 120px;line-height:45px;color:#fff;text-align: center;font-size: 13px;}
+
+#logo_line {position:absolute;width:100%;top:45px;left:0;z-index:10;}
+#logo_line #content{position:relative;width:1140px;height: 120px;left:50%;margin-left:-570px;}
+#logo_line #content #img_logo_img {position:absolute;top: 32px;left:50%;margin-left: -150px;width:300px;}
+#logo_line #content #img_logo_img {position:absolute;top: 32px;left:50%;margin-left: -150px;width:300px;}
+#logo_line #content #p_logo_banner_left {height:120px;float:left;}
+#logo_line #content #p_logo_banner_right {height:120px;float:right;}
+#logo_line #content .p_logo_banner .helper {display: inline-block;height: 100%;vertical-align: middle;}
+#logo_line #content .p_logo_banner img {background: #3A6F9A;vertical-align: middle;max-height: 120px;}
+
+#main_menu {position:absolute;width:100%;top: 165px;left:0;z-index:10;background-color: #f2f2f2;border-top: 3px solid RGBA(0,0,0,0.05);}
+#main_menu #content{position:relative;width:1140px;height: 60px;left:50%;margin-left:-570px;}
+#main_menu #content #ul_mainmenu_list li {border-right:2px solid #fff;width: 110px;line-height: 60px;text-align: center;font-size:13px;font-weight:bold;color:#333;float:left;cursor: pointer}
+#main_menu #content #ul_mainmenu_list li:hover {background-color:#76d4ee;color:#fff}
+#main_menu #content #div_mainmenu_search {float:right;width: 170px;height: 100%;padding-top: 11px;}
+#main_menu #content #div_mainmenu_search #input_search_txt {border: 0;border-bottom: 1px solid #ddd;border-radius:20px;padding-right: 35px;}
+#main_menu #content #div_mainmenu_search #btn_search_click {font-size: 18px;color:#999;position: absolute;top: 18px;right: 12px;cursor:pointer}
+#main_menu #content #div_mainmenu_search #btn_search_click:hover {font-size: 20px;}
+
+i#btn_search_click {}
+
+#container{position:relative;width:1140px;min-height:100%;left:50%;margin-left:-570px;padding-top:240px;padding-bottom:170px;z-index:0}
+#container:after{display:block;clear:both;content:''}
+
+#bottom_content {position:absolute;width:100%;bottom:0;left:0;z-index:10;background-color: #3f3f3f}
+#bottom_content #content{position:relative;width:1140px;height: 160px;left:50%;margin-left:-570px;}
