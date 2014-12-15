@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.models import User
 from tktv.main.models import UserProfile, UserGrade, Main, TopLogo, TopBannerLeft, TopBannerRight, SideBannerLeft, \
-    SideBannerRight, SubMenu, MainMenu
+    SideBannerRight, SubMenu, MainMenu, RightBanner
 
 # Register your models here.
 
@@ -36,6 +37,10 @@ class SideBannerRightInline(admin.StackedInline):
     max_num = 1
     can_delete = True
 
+class RightBannerInline(admin.StackedInline):
+    model = RightBanner
+    can_delete = True
+
 class UserAdmin(AuthUserAdmin):
     list_display = ('id','username','first_name','is_active','date_joined')
     inlines = [UserProfileInline]
@@ -44,7 +49,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('id','user','src','grade')
 
 class UserGradeAdmin(admin.ModelAdmin):
-    list_display = ('id','grade')
+    list_display = ('id','grade','level')
 
 class PermissionAdmin(admin.ModelAdmin):
     list_display = ('id','name')
@@ -64,15 +69,18 @@ class SideBannerLeftAdmin(admin.ModelAdmin):
 class SideBannerRightAdmin(admin.ModelAdmin):
     list_display = ('id','src','url')
 
+class RightBannerAdmin(admin.ModelAdmin):
+    list_display = ('id','src','url')
+
 class MainAdmin(admin.ModelAdmin):
     list_display = ('id','title')
-    inlines = [TopLogoInline, TopBannerLeftInline, TopBannerRightInline, SideBannerLeftInline, SideBannerRightInline]
+    inlines = [TopLogoInline, TopBannerLeftInline, TopBannerRightInline, SideBannerLeftInline, SideBannerRightInline, RightBannerInline]
 
 class MainMenuAdmin(admin.ModelAdmin):
     list_display = ('id','name','order','url')
 
 class SubMenuAdmin(admin.ModelAdmin):
-    list_display = ('id','main_menu','name','order','url')
+    list_display = ('id','main_menu','name','order','mode','url','permission_read','permission_write')
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
@@ -83,6 +91,7 @@ admin.site.register(TopBannerLeft, TopBannerLeftAdmin)
 admin.site.register(TopBannerRight, TopBannerRightAdmin)
 admin.site.register(SideBannerLeft, SideBannerLeftAdmin)
 admin.site.register(SideBannerRight, SideBannerRightAdmin)
+admin.site.register(RightBanner, RightBannerAdmin)
 admin.site.register(Main, MainAdmin)
 admin.site.register(MainMenu, MainMenuAdmin)
 admin.site.register(SubMenu, SubMenuAdmin)

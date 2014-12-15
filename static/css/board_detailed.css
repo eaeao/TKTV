@@ -1,0 +1,21 @@
+#container #aside {position:relative;float:left;width:250px;margin: 0;}
+#container #aside #div_aside_submenu {background-color:#fafafa;margin:10px}
+#container #aside #div_aside_submenu #p_submenu_title {font-size: 18px;font-weight: bold;line-height: 55px;border-bottom: 1px solid #eee;background-color: #2a84bf;color: #fff;padding-left: 20px;margin-bottom: 15px;}
+#container #aside #div_aside_submenu #p_submenu_title i {font-size: 18px;color: #ccc;}
+#container #aside #div_aside_submenu .li_submenu_list {color:#666;font-size: 14px;margin-left: 20px;margin-bottom: 15px;cursor: pointer}
+#container #aside #div_aside_submenu .li_submenu_list:hover {color:#000}
+#container #aside #div_aside_submenu .li_submenu_list i {font-size: 14px;color: #ccc;}
+
+#container #content{float:right;position:relative;width:870px;height:100%;margin:0;}
+#container #content .div_list_title { border-bottom: 2px solid #aaa;padding: 5px; }
+#container #content .div_list_title .span_title_sub {font-weight:bold;font-size: 14px;color: #e67e22;}
+#container #content .div_contents_body {padding: 30px;}
+#container #content .div_contents_body .p_body_title {font-size: 20px;font-weight: bold;margin-bottom: 10px;}
+#container #content .div_contents_body .p_body_font {position: relative;float: right;z-index: 99;}
+#container #content .div_contents_body .p_body_font button {margin-right:5px}
+#container #content .div_contents_body .p_body_font button i {font-size:10px}
+#container #content .div_contents_body .div_body_info {color: #999;}
+#container #content .div_contents_body .div_body_info #reporter {color:#d35400}
+#container #content .div_contents_body .p_body_con pre {border-collapse: separate;color: rgb(34, 34, 34);display: block;font-family: 굴림, Gulim, Helvetica, sans-serif;font-size: 14px;font-style: normal;font-variant: normal;
+    font-weight: normal;letter-spacing: normal;word-wrap: break-word;background: 0;border: 0;border-radius: 0;border-top: 1px solid #eee;margin-top: 10px;padding-top: 15px;}
+#container #content .div_contents_body .p_body_con pre img {max-width:100%;max-height:500px;margin-bottom: 30px;}

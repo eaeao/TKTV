@@ -1,18 +1,111 @@
 {% extends "head.html" %}
 {% block content %}
-<div id="content" class="row">
-<div class="col-lg-12" id="div_content_mainimg">
-</div>
-<div class="col-lg-12" id="div_content_short">
-</div>
-<div class="col-lg-4 div_content_subimg">
-</div>
-<div class="col-lg-4 div_content_subimg">
-</div>
-<div class="col-lg-4 div_content_subimg">
-</div>
-</div>
-<div id="aside">
+    <div id="content" class="row">
+        <div class="col-lg-12" id="div_content_mainimg">
+            <div id="div_mainimg_con">
+                <div id="div_con_group" onclick="location.href='/#';">
+                    <span id="span_con_menu">-</span>
+                    <p id="p_con_date">-</p>
+                    <p id="p_con_title">-</p>
+                    <p id="p_con_con">-</p>
+                </div>
+            </div>
+            <img src="/static/img/main/btn_banner_next.png" id="btn_banner_next" class="btn_banner_controller">
+            <img src="/static/img/main/btn_banner_prev.png" id="btn_banner_prev" class="btn_banner_controller">
+        </div>
+        <div class="col-lg-12" id="div_content_short">
+            <p id="p_short_title">공지사항</p>
+        </div>
+        {% for sub in subimg %}
+            <div class="col-lg-4 div_content_subimg" style="background-image:url({{ sub.ele.get_src.src.url }})" onclick="location.href='/board/detailed/{{ sub.ele.id }}';">
+                <div id="div_subimg_con">
+                    <div id="div_con_group">
+                        <span id="span_con_menu" style="background-color:{{ sub.color }}">{{ sub.ele.submenu.main_menu.name }}</span>
+                        <p id="p_con_title">{{ sub.ele.title }}</p>
+                        <p id="p_con_date">{{ sub.ele.date_updated|date:"Y-m-d H:i:s" }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="aside">
+        <div class="col-lg-12" id="div_aside_topimg">
+            <iframe width="300" height="169" src="//www.youtube.com/embed/UT1DpISFAnY?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-lg-12" id="div_aside_hot">
+            <p id="p_hot_title">많이 본 게시물</p>
+            <ul>
+                {% for hot in hotlist %}
+                    <li class="li_hot_list" onclick="location.href='/board/detailed/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-lg-12" id="div_aside_mainbbaner">
+            <img src="/static/img/main/main_banner.png">
+        </div>
+        <div class="col-lg-12" id="div_aside_banners">
+            {% for banner in getMain.mainImg.right_banner %}
+                <img class="img_banners_banner" src="{{ banner.src.url }}" onclick="location.href='{{ banner.url }}';">
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        var head_img_i = 0;
+        var headimg = new Array();
 
-</div>
+        {% for hl in headline %}
+            headimg.push({"src":"{{ hl.get_src.src.url }}","menu":"{{ hl.submenu.main_menu.name }}","title":"{{ hl.title }}","con":"{{ hl.get_con|escapejs }}","date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}","link":"/board/detailed/{{ hl.id }}"});
+        {% endfor %}
+        setHeadImg();
+        var ani_speed = 7000;
+        var ani_banner = setInterval("head_img_next()",ani_speed);
+
+        function head_img_next(){
+            head_img_i++;
+            setHeadImg()
+        }
+
+        function head_img_prev(){
+            if(head_img_i>0) head_img_i--;
+            else head_img_i = headimg.length-1;
+            setHeadImg()
+        }
+
+        function setHeadImg(){
+            var i = head_img_i%headimg.length;
+            $("#div_content_mainimg").css("background-image","url("+headimg[i]['src']+")");
+            $("#div_content_mainimg").attr("onClick","location.href='"+headimg[i]['link']+"';");
+            $("#div_content_mainimg #div_con_group").hide().fadeIn(500);
+            $("#div_content_mainimg #span_con_menu").text(headimg[i]['menu']);
+            $("#div_content_mainimg #p_con_title").text(headimg[i]['title']);
+            $("#div_content_mainimg #p_con_con").text(headimg[i]['con']);
+            $("#div_content_mainimg #p_con_date").text(headimg[i]['date']);
+        }
+
+        $("#btn_banner_next").mouseenter(function(){
+            clearInterval(ani_banner);
+        });
+
+        $("#btn_banner_next").mouseleave(function(){
+            ani_banner = setInterval("head_img_next()",ani_speed);
+        });
+
+        $("#btn_banner_prev").mouseenter(function(){
+            clearInterval(ani_banner);
+        });
+
+        $("#btn_banner_prev").mouseleave(function(){
+            ani_banner = setInterval("head_img_next()",ani_speed);
+        });
+
+        $("#btn_banner_next").click(function(){
+            head_img_next();
+            return false;
+        });
+
+        $("#btn_banner_prev").click(function(){
+            head_img_prev();
+            return false;
+        });
+    </script>
 {% endblock %}

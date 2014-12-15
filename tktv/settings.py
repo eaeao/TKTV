@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tktv.main',
+    'tktv.board',
+    'tktv.page',
 )
 
 MIDDLEWARE_CLASSES = (

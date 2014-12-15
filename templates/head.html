@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>TKTV</title>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/focuspoint.css">
     <link rel="stylesheet" type="text/css" href="/static/css/xeicon.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/header.css">
     <link rel="stylesheet" type="text/css" href="/static/css/{{ appname }}.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -16,21 +19,29 @@
             <ul id="ul_top_quick">
                 <li>제보하기</li>
                 <li>광고문의</li>
-                <li role="presentation" class="dropdown navbar-right" id="li_top_profile" style="float:right">
-                    <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                        <img id="img_profile_usericon" src="{{ user.get_profile.src.url }}">
-                        <span id="span_profile_username">{{ user.first_name }}</span>
-                        <span id="span_profile_drop">▼</span>
-                    </a>
-                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated link</a></li>
-                    </ul>
-                </li>
-
+                {% if user.id %}
+                    <li role="presentation" class="dropdown navbar-right" id="li_top_profile" style="float:right">
+                        <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                            <img id="img_profile_usericon" src="{{ user.get_profile.src.url }}">
+                            <span id="span_profile_username">{{ user.first_name }}</span>
+                            <span id="span_profile_drop">▼</span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a></li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated link</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li id="li_top_join" style="float:right">
+                        회원가입
+                    </li>
+                    <li id="li_top_login" style="float:right">
+                        로그인
+                    </li>
+                {% endif %}
             </ul>
             <p id="p_top_date"></p>
         </div>
@@ -41,12 +52,12 @@
         <div id="content">
             <p id="p_logo_banner_left" class="p_logo_banner">
                 <span class="helper"></span>
-                <a href="{{ mainImg.top_banner_left.url }}"><img src="{{ mainImg.top_banner_left.src.url }}"></a>
+                <a href="{{ getMain.mainImg.top_banner_left.url }}"><img src="{{ getMain.mainImg.top_banner_left.src.url }}"></a>
             </p>
-            <a href="{{ mainImg.top_logo.url }}"><img id="img_logo_img" src="{{ mainImg.top_logo.src.url }}"></a>
+            <a href="{{ mainImg.top_logo.url }}/"><img id="img_logo_img" src="{{ getMain.mainImg.top_logo.src.url }}"></a>
             <p id="p_logo_banner_right" class="p_logo_banner">
                 <span class="helper"></span>
-                <a href="{{ mainImg.top_banner_right.url }}"><img src="{{ mainImg.top_banner_right.src.url }}"></a>
+                <a href="{{ getMain.mainImg.top_banner_right.url }}"><img src="{{ getMain.mainImg.top_banner_right.src.url }}"></a>
             </p>
         </div>
     </div>
@@ -55,8 +66,19 @@
     <div id="main_menu">
         <div id="content">
             <ul id="ul_mainmenu_list">
-                {% for mm in main_menu %}
-                    <li>{{ mm.name }}</li>
+                {% for mm in getMain.main_menu %}
+                    <li class="dropdown">
+                        <a id="dLabel" role="button" data-target="#" href="{{ mm.get_link }}">{{ mm.name }}</a>
+                        {% if mm.get_submenu %}
+                            <div id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                                <ul>
+                                    {% for sm in mm.get_submenu %}
+                                        <li role="presentation" onclick="location.href='{{ sm.get_link }}';"><i class="xe-angle-right"></i> {{ sm.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
             <div id="div_mainmenu_search">
@@ -79,8 +101,7 @@
     </div>
     <!-- //Main_menu -->
 </div>
-<script type="text/javascript" src="/static/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.focuspoint.js"></script>
 <script type="text/javascript" src="/static/js/head.js"></script>
 <script>
     $('.dropdown-toggle').dropdown();
