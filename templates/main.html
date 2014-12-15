@@ -1,32 +1,57 @@
 {% extends "head.html" %}
+{% load main_extras %}
 {% block content %}
-    <div id="content" class="row">
-        <div class="col-lg-12" id="div_content_mainimg">
-            <div id="div_mainimg_con">
-                <div id="div_con_group" onclick="location.href='/#';">
-                    <span id="span_con_menu">-</span>
-                    <p id="p_con_date">-</p>
-                    <p id="p_con_title">-</p>
-                    <p id="p_con_con">-</p>
-                </div>
-            </div>
-            <img src="/static/img/main/btn_banner_next.png" id="btn_banner_next" class="btn_banner_controller">
-            <img src="/static/img/main/btn_banner_prev.png" id="btn_banner_prev" class="btn_banner_controller">
-        </div>
-        <div class="col-lg-12" id="div_content_short">
-            <p id="p_short_title">공지사항</p>
-        </div>
-        {% for sub in subimg %}
-            <div class="col-lg-4 div_content_subimg" style="background-image:url({{ sub.ele.get_src.src.url }})" onclick="location.href='/board/detailed/{{ sub.ele.id }}';">
-                <div id="div_subimg_con">
-                    <div id="div_con_group">
-                        <span id="span_con_menu" style="background-color:{{ sub.color }}">{{ sub.ele.submenu.main_menu.name }}</span>
-                        <p id="p_con_title">{{ sub.ele.title }}</p>
-                        <p id="p_con_date">{{ sub.ele.date_updated|date:"Y-m-d H:i:s" }}</p>
+    <div id="content">
+        <div class="row">
+            <div class="col-lg-12" id="div_content_mainimg">
+                <div id="div_mainimg_con">
+                    <div id="div_con_group" onclick="location.href='/#';">
+                        <span id="span_con_menu">-</span>
+                        <p id="p_con_date">-</p>
+                        <p id="p_con_title">-</p>
+                        <p id="p_con_con">-</p>
                     </div>
                 </div>
+                <img src="/static/img/main/btn_banner_next.png" id="btn_banner_next" class="btn_banner_controller">
+                <img src="/static/img/main/btn_banner_prev.png" id="btn_banner_prev" class="btn_banner_controller">
             </div>
-        {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-12" id="div_content_short">
+                <p id="p_short_title">공지사항</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for sub in subimg %}
+                <div class="col-lg-4 div_content_subimg" style="background-image:url({{ sub.ele.get_src.src.url }})" onclick="location.href='/board/detailed/{{ sub.ele.id }}';">
+                    <div id="div_subimg_con">
+                        <div id="div_con_group">
+                            <span id="span_con_menu" style="background-color:{{ sub.color }}">{{ sub.ele.submenu.main_menu.name }}</span>
+                            <p id="p_con_title">{{ sub.ele.title }}</p>
+                            <p id="p_con_date">{{ sub.ele.date_updated|date:"Y-m-d H:i:s" }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for mm in getMain.main_menu|slice:"1:5" %}
+                <div class="col-lg-12 div_content_category">
+                    <p class="p_category_title click" onclick="location.href='/board/{{ m_ele.get_link }}';">{{ mm.name }}</p>
+                    {% for m1 in mm|get_board|slice:":1" %}
+                        <div class="div_category_element_top click" onclick="location.href='/board/detailed/{{ m1.id }}';">
+                            {% if m1.get_src.is_visible %}<div class="div_element_img" style="background-image:url({{ m1.get_src.src.url}})"></div>{% endif %}
+                            <p class="p_element_date">[{{ m1.date_updated|date:"Y-m-d H:i:s" }}]</p>
+                            <p class="p_element_title">{{ m1.title }}</p>
+                            <p class="p_element_con">{{ m1.get_con|striptags }}</p>
+                        </div>
+                    {% endfor %}
+                    {% for m_ele in mm|get_board|slice:"1:6" %}
+                        <p class="div_category_element click" onclick="location.href='/board/detailed/{{ m_ele.id }}';"><i class="xe-angle-right"></i> {{ m_ele.title }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
     <div id="aside">
         <div class="col-lg-12" id="div_aside_topimg">
@@ -54,7 +79,7 @@
         var headimg = new Array();
 
         {% for hl in headline %}
-            headimg.push({"src":"{{ hl.get_src.src.url }}","menu":"{{ hl.submenu.main_menu.name }}","title":"{{ hl.title }}","con":"{{ hl.get_con|escapejs }}","date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}","link":"/board/detailed/{{ hl.id }}"});
+            headimg.push({"src":"{{ hl.get_src.src.url }}","menu":"{{ hl.submenu.main_menu.name }}","title":"{{ hl.title }}","con":"{{ hl.get_con|striptags|escapejs }}","date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}","link":"/board/detailed/{{ hl.id }}"});
         {% endfor %}
         setHeadImg();
         var ani_speed = 7000;

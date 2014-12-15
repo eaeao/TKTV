@@ -1,0 +1,35 @@
+{% extends "head.html" %}
+{% block content %}
+    <div id="aside" class="row">
+        <div id="div_aside_submenu" class="div_feed">
+            <p id="p_submenu_title"><i class="xe-right-circle"></i> {{ submenu.main_menu.name }}</p>
+            <ul>
+                {% for sub in  submenu.main_menu.get_submenu %}
+                    <a href="{{ sub.get_link }}"><li class="li_submenu_list {% if submenu.name == sub.name %}bold{% endif %}"><i class="xe-angle-right"></i> {{ sub.name }}</li></a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div id="content" class="row">
+        <div class="col-lg-12 div_list_title">
+            <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
+        </div>
+        {% if list %}
+            {% for ele in list %}
+                <div class="col-lg-12 div_list_element div_list_click" onclick="location.href='/board/detailed/{{ ele.id }}';">
+                    {% if ele.get_src.is_visible %}<div class="div_element_img" style="background-image:url({{ ele.get_src.src.url}})"></div>{% endif %}
+                    <p class="p_element_date">[{{ ele.date_updated|date:"Y-m-d H:i:s" }}]</p>
+                    <p class="p_element_title">{{ ele.title }}</p>
+                    <p class="p_element_con">{{ ele.get_con|striptags }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-lg-12 div_list_element">
+                작성된 게시물이 없습니다.
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+    </script>
+{% endblock %}

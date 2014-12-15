@@ -4,7 +4,6 @@ from django.core.exceptions import MultipleObjectsReturned
 from django.db import models
 
 # Create your models here.
-
 class UserGrade(models.Model):
     grade = models.TextField()
     level = models.IntegerField(unique=True)
@@ -107,7 +106,9 @@ class MainMenu(models.Model):
 MODE_IN_SUBMENU_CHOICES = (
     (0, '외부링크'),
     (1, '페이지'),
-    (2, '게시판')
+    (2, '일반 게시판'),
+    (3, '웹진'),
+    (4, '갤러리'),
 )
 
 class SubMenu(models.Model):
@@ -125,6 +126,10 @@ class SubMenu(models.Model):
         elif self.mode == 1 :
             return "/page/%d"%self.id
         elif self.mode == 2 :
+            return "/board/%d"%self.id
+        elif self.mode == 3 :
+            return "/board/%d"%self.id
+        elif self.mode == 4 :
             return "/board/%d"%self.id
 
     def __unicode__(self):

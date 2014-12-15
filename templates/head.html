@@ -13,6 +13,7 @@
 </head>
 <body>
 <div id="wrap">
+    {% csrf_token %}
     <!-- top_menu -->
     <div id="top_menu">
         <div id="content">
@@ -27,18 +28,18 @@
                             <span id="span_profile_drop">▼</span>
                         </a>
                         <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a></li>
+                            {#                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a></li>#}
+                            {#                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a></li>#}
+                            {% if user.get_profile.grade.level == 10 %}<li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">관리자 페이지</a></li>{% endif %}
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated link</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/user/logout/">로그아웃</a></li>
                         </ul>
                     </li>
                 {% else %}
                     <li id="li_top_join" style="float:right">
                         회원가입
                     </li>
-                    <li id="li_top_login" style="float:right">
+                    <li id="li_top_login" style="float:right" onclick="$('#LoginModal').modal('show');">
                         로그인
                     </li>
                 {% endif %}
@@ -82,8 +83,10 @@
                 {% endfor %}
             </ul>
             <div id="div_mainmenu_search">
-                <input type="text" class="form-control" id="input_search_txt" placeholder="검색">
-                <i class="xe-magnifier" id="btn_search_click"></i>
+                <form method="get">
+                    <input type="text" class="form-control" id="input_search_txt" name="query" placeholder="검색">
+                    <button><i class="xe-magnifier" id="btn_search_click"></i></button>
+                </form>
             </div>
         </div>
     </div>
@@ -101,10 +104,38 @@
     </div>
     <!-- //Main_menu -->
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="/user/login/" method="post">
+                    {% csrf_token %}
+                    <div class="control-group">
+                        <input type="text" name="user_id" id="uid" required="" placeholder="아이디" title="아이디">
+                        <input type="password" name="password" id="upw" required="" placeholder="비밀번호" title="비밀번호">
+                    </div>
+                    <div class="control-group">
+                        <input type="submit" value="로그인" class="btn_submit">
+                    </div>
+                </form>
+                <div class="login-footer">
+                    <a href="#">ID/PW 찾기</a>
+                    <span class="bar">|</span>
+                    <a href="#">회원가입</a>
+                </div>
+            </div>
+            <a href="#" class="btn_close"><i class="xe-close"></i><span class="blind">닫기</span></a>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script type="text/javascript" src="/static/js/jquery.focuspoint.js"></script>
 <script type="text/javascript" src="/static/js/head.js"></script>
 <script>
     $('.dropdown-toggle').dropdown();
+    $('.btn_close').click(function(){ $('#LoginModal').modal('hide'); });
 </script>
 </body>
 </html>

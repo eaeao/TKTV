@@ -14,6 +14,7 @@ a:hover,a:active,a:focus{text-decoration:none;color:inherit;}
 /* Layout */
 .imgbtn{cursor:pointer}
 .bold {font-weight: bold}
+.blind {overflow: hidden;position: absolute;top: 0;left: 0;width: 1px;height: 1px;font-size: 0;line-height: 0;}
 
 #wrap{position:relative;width:100%;min-width:1140px;min-height:100%;margin:0 auto;background: #fff;}
 
@@ -60,3 +61,14 @@ i#btn_search_click {}
 
 #bottom_content {position:absolute;width:100%;bottom:0;left:0;z-index:10;background-color: #3f3f3f}
 #bottom_content #content{position:relative;width:1140px;height: 160px;left:50%;margin-left:-570px;}
+
+#LoginModal .modal-dialog {width:400px}
+#LoginModal .modal-dialog .modal-content {border-radius: 0;margin-top: 50%;}
+#LoginModal .modal-dialog .modal-content .modal-body {background-color: #fafafa}
+#LoginModal .modal-body #uid {font-size: 14px;width: 100%;height: 48px;margin-bottom: 10px;padding: 12px 6px 12px 10px;border: 1px solid #ccc;background-color: #fff;line-height: 14px;box-sizing: border-box;}
+#LoginModal .modal-body #upw {font-size: 14px;width: 100%;height: 48px;margin-bottom: 10px;padding: 12px 6px 12px 10px;border: 1px solid #ccc;background-color: #fff;line-height: 14px;box-sizing: border-box;}
+#LoginModal .modal-body .btn_submit {font-size: 15px;color: #fafafa;border: 1px solid #3f5ac9;background-color: #455ede;width: 100%;margin: 19px 0 0 0;padding: 14px 0px;cursor: pointer;}
+#LoginModal .modal-body .login-footer {padding: 11px 0 0px;margin: 20px 40px 0;text-align: center;border-top: 1px solid #ccc;color: #888;}
+#LoginModal .modal-body .bar {display: inline-block;margin: 0 8px;}
+#LoginModal .modal-dialog .btn_close {position: absolute;top: -31px;right: 0;width: 26px;height: 26px;font-size: 26px;line-height: 26px;text-align: center;color: #fafafa;}
+#LoginModal .modal-dialog .btn_close i {font-size: 26px;text-align: center;color: #fafafa;}

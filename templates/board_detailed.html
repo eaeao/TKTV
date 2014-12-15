@@ -18,7 +18,7 @@
             <p class="p_body_title">{{ board.title }}</p>
             <p class="p_body_font">글자크기 : <button class="btn btn-xs btn-default" id="btn_font_up"><i class="xe-plus"></i></button><button class="btn btn-xs btn-default" id="btn_font_down"><i class="xe-minus"></i></button></p>
             <div class="div_body_info dropdown">
-                <a id="reporter" role="button" data-toggle="dropdown" href="#">{{ board.user.first_name }} {{ board.user.get_profile.grade.grade }}</a> | [{{ board.date_updated|date:"Y-m-d H:i:s" }}]
+                <a id="reporter" role="button" data-toggle="dropdown" href="#">{{ board.user.first_name }} {{ board.user.get_profile.grade.grade }}</a> | 조회수:{{ board.hits }} | [{{ board.date_updated|date:"Y-m-d H:i:s" }}]
                 <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="reporter">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">다른 기사보기</a></li>
                     <li role="presentation" class="divider"></li>
@@ -26,11 +26,21 @@
                 </ul>
             </div>
             <div class="p_body_con"><pre>{{ contents|safe }}</pre></div>
+            <div id="div_comment_input">
+                <p id="p_comment_length">200 / 200 자</p>
+                <p id="p_comment_title">댓글쓰기</p>
+                <textarea class="form-control" id="textarea_comment_txt" maxlength="200" rows="3" placeholder="댓글을 입력하세요."></textarea>
+                <button class="btn btn-default" id="btn_comment_write">확인</button>
+            </div>
+            <div class="div_comment_list">&nbsp;</div>
         </div>
     </div>
     <script>
         var fontSize = 14;
         $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+
+        $(".div_contents_body .div_comment_list").load("/board/reply/{{ board.id }}");
+
         $(".div_contents_body #btn_font_up").click(function(){
             if(fontSize < 24) fontSize += 2;
             setFontSize();
@@ -41,6 +51,20 @@
         });
         function setFontSize(){
             $(".p_body_con pre").css({"font-size":fontSize+"px"})
+        }
+
+        $("#btn_comment_write").click(function(){
+            var board_id = "{{ board.id }}";
+            var con = $("#textarea_comment_txt").val();
+            $(".div_contents_body .div_comment_list").hide().load("/board/reply/post/",{'csrfmiddlewaretoken':$("#wrap > input[name=csrfmiddlewaretoken]").val(),'board_id':board_id,'con':con},function(){
+                $("#textarea_comment_txt").val("");
+            }).fadeIn(500);
+        });
+
+        function replyDelete(boardreply_id){
+            if (confirm('정말 삭제하시겠습니까?')) {
+                $(".div_contents_body .div_comment_list").hide().load("/board/reply/delete/",{'csrfmiddlewaretoken':$("#wrap > input[name=csrfmiddlewaretoken]").val(),'boardreply_id':boardreply_id}).fadeIn(500);
+            }
         }
     </script>
 {% endblock %}

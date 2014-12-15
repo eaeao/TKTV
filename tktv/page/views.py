@@ -17,7 +17,7 @@ def page(request, sub_id=None):
             contents = page.con
 
             for i in range(0,len(pageimg)) :
-                contents = contents.replace("{{%d}}"%i, "<img src='%s' class='img_page_src'>"%(pageimg[i].src.url))
+                contents = contents.replace("{{%d}}"%i, "<a href='%s' target='_blank'><img src='%s' class='img_page_src'></a>"%(pageimg[i].src.url,pageimg[i].src.url))
 
         context = {
             'submenu':submenu,
