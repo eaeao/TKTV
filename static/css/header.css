@@ -15,6 +15,7 @@ a:hover,a:active,a:focus{text-decoration:none;color:inherit;}
 .imgbtn{cursor:pointer}
 .bold {font-weight: bold}
 .blind {overflow: hidden;position: absolute;top: 0;left: 0;width: 1px;height: 1px;font-size: 0;line-height: 0;}
+.click {cursor:pointer}
 
 #wrap{position:relative;width:100%;min-width:1140px;min-height:100%;margin:0 auto;background: #fff;}
 
@@ -61,6 +62,11 @@ i#btn_search_click {}
 
 #bottom_content {position:absolute;width:100%;bottom:0;left:0;z-index:10;background-color: #3f3f3f}
 #bottom_content #content{position:relative;width:1140px;height: 160px;left:50%;margin-left:-570px;}
+#bottom_content #content .li_bottom_list {float: left;margin: 0 5px;margin-top: 15px;}
+#bottom_content #content .li_bottom_list .span_bottom_btn{color: #fff;background-color: #999;font-size: 15px;font-weight: bold;padding: 4px 12px;border-radius: 15px;line-height: 56px;}
+#bottom_content #content .li_bottom_list .span_bottom_btn:hover{background-color:#f1c40f}
+#bottom_content #content .p_bottom_intro {color: #d0d0d0;font-size: 16px;font-weight: bold;padding-top: 85px;padding-left: 15px;}
+#bottom_content #content .p_bottom_info {color: #999;font-size: 12px;padding-left: 15px;padding-top: 5px;}
 
 #LoginModal .modal-dialog {width:400px}
 #LoginModal .modal-dialog .modal-content {border-radius: 0;margin-top: 50%;}
@@ -72,3 +78,12 @@ i#btn_search_click {}
 #LoginModal .modal-body .bar {display: inline-block;margin: 0 8px;}
 #LoginModal .modal-dialog .btn_close {position: absolute;top: -31px;right: 0;width: 26px;height: 26px;font-size: 26px;line-height: 26px;text-align: center;color: #fafafa;}
 #LoginModal .modal-dialog .btn_close i {font-size: 26px;text-align: center;color: #fafafa;}
+
+#JoinModal .modal-dialog {width:400px}
+#JoinModal .modal-dialog .modal-content {border-radius: 0;margin-top: 50%;}
+#JoinModal .modal-dialog .modal-content .modal-body {background-color: #fafafa}
+#JoinModal .modal-body hr {margin-top: 10px;margin-bottom: 10px;border: 0;border-top: 1px solid #ccc;}
+#JoinModal .modal-body .join-form {font-size: 14px;width: 100%;height: 48px;margin-bottom: 10px;padding: 12px 6px 12px 10px;border: 1px solid #ccc;background-color: #fff;line-height: 14px;box-sizing: border-box;}
+#JoinModal .modal-body .btn_submit {font-size: 15px;color: #fafafa;border: 1px solid #27ae60;background-color: #2ecc71;width: 100%;margin: 19px 0 0 0;padding: 14px 0px;cursor: pointer;}
+#JoinModal .modal-dialog .btn_close {position: absolute;top: -31px;right: 0;width: 26px;height: 26px;font-size: 26px;line-height: 26px;text-align: center;color: #fafafa;}
+#JoinModal .modal-dialog .btn_close i {font-size: 26px;text-align: center;color: #fafafa;}

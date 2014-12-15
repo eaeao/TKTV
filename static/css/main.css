@@ -1,6 +1,5 @@
 #container #content {position:relative;float:left;width:810px;margin: 0;}
 #container #content .row {margin:0}
-#container #content .click {cursor:pointer}
 #container #content #div_content_mainimg {height:320px;background-color: #000;padding: 0;margin: 0;background-position: 50% 50%;background-repeat: no-repeat;background-size: 100%;}
 #container #content #div_content_mainimg {-webkit-transition: background 500ms ease-in 0ms;-moz-transition: background 500ms ease-in 0ms;-o-transition: background 500ms ease-in 0ms;transition: background 500ms ease-in 0ms;}
 #container #content #div_content_mainimg  #div_mainimg_con {position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-image: url(/static/img/main/card_title_bg.png);

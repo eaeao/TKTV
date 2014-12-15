@@ -14,8 +14,9 @@ class UserGrade(models.Model):
 class UserProfile(models.Model):
     #required by the auth model
     user = models.ForeignKey(User, unique=True)
-    src = models.FileField(upload_to="upload/")
+    src = models.FileField(upload_to="upload/",default="/static/img/main/default_user.png")
     grade = models.ForeignKey(UserGrade, default=1)
+    phone_number = models.TextField()
 
     def __unicode__(self):
         return u'[%d] %s' %(self.id,self.user.first_name)

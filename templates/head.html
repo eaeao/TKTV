@@ -36,7 +36,7 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li id="li_top_join" style="float:right">
+                    <li id="li_top_join" style="float:right" onclick="$('#JoinModal').modal('show');">
                         회원가입
                     </li>
                     <li id="li_top_login" style="float:right" onclick="$('#LoginModal').modal('show');">
@@ -99,7 +99,16 @@
     <!-- Bottom_content -->
     <div id="bottom_content">
         <div id="content">
-
+            <ul>
+                <li class="li_bottom_list"><img src="/static/img/main/bottom_logo.png"></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click">회사소개</span></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click">이용약관</span></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click">개인정보보호정책</span></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click">RSS</span></li>
+            </ul>
+            <p class="p_bottom_intro">MBC 선정 좋은한국인대상 수상, 사회봉사부문 신지식인 선정, TBC 선정 자랑스런 대경인상 수상자 운영</p>
+            <p class="p_bottom_info">상호: TKTV인터넷신문.방송, 발행인: 이종민,  대표전화: 070-8637-2675 / 010-2881-8486  팩스: 053-289-1052<br/>
+                등록번호: 대구 아00139 , 대구시 중구 동인동1가 382-6 대웅빌딩 3F, 기사제보 이메일 jmr10290@hanmail.net</p>
         </div>
     </div>
     <!-- //Main_menu -->
@@ -123,8 +132,36 @@
                 <div class="login-footer">
                     <a href="#">ID/PW 찾기</a>
                     <span class="bar">|</span>
-                    <a href="#">회원가입</a>
+                    <a href="#" onclick="onJoin()">회원가입</a>
                 </div>
+            </div>
+            <a href="#" class="btn_close"><i class="xe-close"></i><span class="blind">닫기</span></a>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="JoinModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="/user/join/" method="post">
+                    {% csrf_token %}
+                    <div class="control-group">
+                        <input class="join-form" type="text" name="user_id" id="uid" required="" placeholder="아이디" title="아이디">
+                        <input class="join-form" type="password" name="password" id="upw" required="" placeholder="비밀번호" title="비밀번호">
+                        <input class="join-form" type="password" name="password_" id="upw_" required="" placeholder="비밀번호 확인" title="비밀번호 확인">
+                        <hr/>
+                        <input class="join-form" type="text" name="user_name" id="uname" required="" placeholder="이름" title="이름">
+                        <input class="join-form" type="email" name="user_email" id="uemail" required="" placeholder="이메일" title="이메일">
+                        <input class="join-form" type="text" name="user_phone" id="uphone" required="" placeholder="연락처 ex)010-2345-6789" title="연락처">
+                        <p align="center">개인정보취급방침 자세히 보기</p>
+                        <label for="check_opt"><input type="checkbox" id="check_opt"> 약관에 동의합니다.</label>
+                    </div>
+                    <div class="control-group">
+                        <input type="submit" value="회원가입" class="btn_submit">
+                    </div>
+                </form>
             </div>
             <a href="#" class="btn_close"><i class="xe-close"></i><span class="blind">닫기</span></a>
         </div><!-- /.modal-content -->
@@ -135,7 +172,15 @@
 <script type="text/javascript" src="/static/js/head.js"></script>
 <script>
     $('.dropdown-toggle').dropdown();
-    $('.btn_close').click(function(){ $('#LoginModal').modal('hide'); });
+    $('.btn_close').click(function(){ $('.modal').modal('hide'); });
+
+    function onJoin(){
+        $('#LoginModal').modal('hide');
+        $('#LoginModal').on('hidden.bs.modal',function(){
+            $('#JoinModal').modal('show');
+            return false;
+        });
+    }
 </script>
 </body>
 </html>
