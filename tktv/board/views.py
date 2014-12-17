@@ -21,7 +21,7 @@ def board(request, sub_id=None):
         return render(request, 'board_%d.html'%(submenu.mode), context)
     return HttpResponseRedirect('/')
 
-def board_detailed(request, board_id=None):
+def board_detail(request, board_id=None):
     board = get_or_none(Board,id=board_id)
     if board :
         board.hits = board.hits + 1
@@ -36,9 +36,9 @@ def board_detailed(request, board_id=None):
             'contents':contents,
             'user': request.user,
             'getMain':getMain(),
-            'appname':'board_detailed'
+            'appname':'board_detail'
         }
-        return render(request, 'board_detailed.html', context)
+        return render(request, 'board_detail.html', context)
     return HttpResponseRedirect('/')
 
 def board_reply(request, board_id=None):

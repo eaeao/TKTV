@@ -14,6 +14,8 @@ def main(request):
     headline = Board.objects.filter(is_headline=True).order_by("-id")
     hotlist = Board.objects.all().order_by("-hits")[:10]
 
+    notices = Board.objects.filter(submenu=1).order_by("-id")
+
     subimg = []
     subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=2,is_headline=True),"color":"#f39c12"})
     subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=3,is_headline=True),"color":"#27ae60"})
@@ -22,6 +24,7 @@ def main(request):
         'headline':headline,
         'hotlist':hotlist,
         'subimg':subimg,
+        'notices':notices,
         'getMain':getMain(),
         'user': request.user,
         'appname':'main'

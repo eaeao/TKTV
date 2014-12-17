@@ -19,11 +19,18 @@
         <div class="row">
             <div class="col-lg-12" id="div_content_short">
                 <p id="p_short_title">공지사항</p>
+                <div id="div_short_con">
+                <ul>
+                    {% for notice in notices %}
+                        <li onclick="location.href='/board/detail/{{ notice.id }}';" class="click">{{ notice.title }} <span>{{ notice.date_updated|date:"Y.m.d H:i:s" }}</span></li>
+                    {% endfor %}
+                </ul>
+                </div>
             </div>
         </div>
         <div class="row">
             {% for sub in subimg %}
-                <div class="col-lg-4 div_content_subimg" style="background-image:url({{ sub.ele.get_src.src.url }})" onclick="location.href='/board/detailed/{{ sub.ele.id }}';">
+                <div class="col-lg-4 div_content_subimg" style="background-image:url({% if sub.ele.get_src.src %}{{ sub.ele.get_src.src.url }}{% else %}/static/img/main/blank_img.jpg{% endif %})" onclick="location.href='/board/detail/{{ sub.ele.id }}';">
                     <div id="div_subimg_con">
                         <div id="div_con_group">
                             <span id="span_con_menu" style="background-color:{{ sub.color }}">{{ sub.ele.submenu.main_menu.name }}</span>
@@ -39,7 +46,7 @@
                 <div class="col-lg-12 div_content_category">
                     <p class="p_category_title click" onclick="location.href='/board/{{ m_ele.get_link }}';">{{ mm.name }}</p>
                     {% for m1 in mm|get_board|slice:":1" %}
-                        <div class="div_category_element_top click" onclick="location.href='/board/detailed/{{ m1.id }}';">
+                        <div class="div_category_element_top click" onclick="location.href='/board/detail/{{ m1.id }}';">
                             {% if m1.get_src.is_visible %}<div class="div_element_img" style="background-image:url({{ m1.get_src.src.url}})"></div>{% endif %}
                             <p class="p_element_date">[{{ m1.date_updated|date:"Y-m-d H:i:s" }}]</p>
                             <p class="p_element_title">{{ m1.title }}</p>
@@ -47,7 +54,7 @@
                         </div>
                     {% endfor %}
                     {% for m_ele in mm|get_board|slice:"1:6" %}
-                        <p class="div_category_element click" onclick="location.href='/board/detailed/{{ m_ele.id }}';"><i class="xe-angle-right"></i> {{ m_ele.title }}</p>
+                        <p class="div_category_element click" onclick="location.href='/board/detail/{{ m_ele.id }}';"><i class="xe-angle-right"></i> {{ m_ele.title }}</p>
                     {% endfor %}
                 </div>
             {% endfor %}
@@ -61,7 +68,7 @@
             <p id="p_hot_title">많이 본 게시물</p>
             <ul>
                 {% for hot in hotlist %}
-                    <li class="li_hot_list" onclick="location.href='/board/detailed/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
+                    <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -75,11 +82,22 @@
         </div>
     </div>
     <script>
+        $(function() {
+            $('#div_short_con').vTicker();
+        });
+
         var head_img_i = 0;
         var headimg = new Array();
 
         {% for hl in headline %}
-            headimg.push({"src":"{{ hl.get_src.src.url }}","menu":"{{ hl.submenu.main_menu.name }}","title":"{{ hl.title }}","con":"{{ hl.get_con|striptags|escapejs }}","date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}","link":"/board/detailed/{{ hl.id }}"});
+            headimg.push({
+                "src":"{% if hl.get_src.src %}{{ hl.get_src.src.url }}{% else %}/static/img/main/blank_img.jpg{% endif %}",
+                "menu":"{{ hl.submenu.main_menu.name }}",
+                "title":"{{ hl.title }}",
+                "con":"{{ hl.get_con|striptags|escapejs }}",
+                "date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}",
+                "link":"/board/detail/{{ hl.id }}"
+            });
         {% endfor %}
         setHeadImg();
         var ani_speed = 7000;

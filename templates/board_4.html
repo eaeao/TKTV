@@ -16,7 +16,7 @@
         </div>
         {% if list %}
             {% for ele in list %}
-                <div class="col-lg-3 div_list_element div_list_click" onclick="location.href='/board/detailed/{{ ele.id }}';">
+                <div class="col-lg-3 div_list_element div_list_click" onclick="location.href='/board/detail/{{ ele.id }}';">
                     {% if ele.get_src.is_visible %}
                         <div class="div_element_img" style="background-image:url({{ ele.get_src.src.url}})"></div>
                     {% else %}
