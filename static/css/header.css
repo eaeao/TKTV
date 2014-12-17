@@ -16,6 +16,7 @@ a:hover,a:active,a:focus{text-decoration:none;color:inherit;}
 .bold {font-weight: bold}
 .blind {overflow: hidden;position: absolute;top: 0;left: 0;width: 1px;height: 1px;font-size: 0;line-height: 0;}
 .click {cursor:pointer}
+.tooltip .tooltip-inner {min-width: 160px;}
 
 #wrap{position:relative;width:100%;min-width:1140px;min-height:100%;margin:0 auto;background: #fff;}
 
@@ -28,7 +29,7 @@ a:hover,a:active,a:focus{text-decoration:none;color:inherit;}
 #top_menu #content #li_top_profile #img_profile_usericon {height: 35px;margin:5px;border-radius:41px;float:left}
 #top_menu #content #li_top_profile #span_profile_username {line-height:45px;padding: 0 5px;float:left}
 #top_menu #content #li_top_login {border-left:1px solid #303030}
-#top_menu #content #p_top_date {position:absolute;top:0;left:50%;margin-left: -60px;width: 120px;line-height:45px;color:#fff;text-align: center;font-size: 13px;}
+#top_menu #content #p_top_date {position:absolute;top:0;left:50%;margin-left: -90px;width: 180px;line-height:45px;color:#fff;text-align: center;font-size: 13px;}
 
 #logo_line {position:absolute;width:100%;top:45px;left:0;z-index:10;}
 #logo_line #content{position:relative;width:1140px;height: 120px;left:50%;margin-left:-570px;}
@@ -38,6 +39,8 @@ a:hover,a:active,a:focus{text-decoration:none;color:inherit;}
 #logo_line #content #p_logo_banner_right {height:120px;float:right;}
 #logo_line #content .p_logo_banner .helper {display: inline-block;height: 100%;vertical-align: middle;}
 #logo_line #content .p_logo_banner img {background: #3A6F9A;vertical-align: middle;max-height: 120px;}
+#logo_line #p_side_banner_left { position: fixed;  top: 240px;right: 50%;margin-right: 580px;  z-index: 1000; }
+#logo_line #p_side_banner_right { position: fixed;top: 240px;left: 50%;margin-left: 580px;z-index: 1000; }
 
 #main_menu {position:absolute;width:100%;top: 165px;left:0;z-index:10;background-color: #f2f2f2;border-top: 3px solid RGBA(0,0,0,0.05);}
 #main_menu #content{position:relative;width:1140px;height: 60px;left:50%;margin-left:-570px;}
@@ -60,7 +63,7 @@ i#btn_search_click {}
 #container{position:relative;width:1140px;min-height:100%;left:50%;margin-left:-570px;padding-top:240px;padding-bottom:170px;z-index:0}
 #container:after{display:block;clear:both;content:''}
 
-#bottom_content {position:absolute;width:100%;bottom:0;left:0;z-index:10;background-color: #3f3f3f}
+#bottom_content {position:absolute;width:100%;bottom:0;left:0;z-index: 0;background-color: #3f3f3f}
 #bottom_content #content{position:relative;width:1140px;height: 160px;left:50%;margin-left:-570px;}
 #bottom_content #content .li_bottom_list {float: left;margin: 0 5px;margin-top: 15px;}
 #bottom_content #content .li_bottom_list .span_bottom_btn{color: #fff;background-color: #999;font-size: 15px;font-weight: bold;padding: 4px 12px;border-radius: 15px;line-height: 56px;}
@@ -83,6 +86,14 @@ i#btn_search_click {}
 #JoinModal .modal-dialog .modal-content {border-radius: 0;margin-top: 50%;}
 #JoinModal .modal-dialog .modal-content .modal-body {background-color: #fafafa}
 #JoinModal .modal-body hr {margin-top: 10px;margin-bottom: 10px;border: 0;border-top: 1px solid #ccc;}
+#JoinModal .modal-body .join-info { position: absolute; right: 30px; background-color: transparent;}
+#JoinModal .modal-body .join-info i {font-size: 18px;}
+#JoinModal .modal-body .join-info i.success {color:#2ecc71}
+#JoinModal .modal-body .join-info i.fail {color:#e74c3c}
+#JoinModal .modal-body #btn_join_chkid { color: #95a5a6; top: 34px; }
+#JoinModal .modal-body #btn_join_chkpw { color: #95a5a6; top: 92px; }
+#JoinModal .modal-body #btn_join_chkpw_ { color: #95a5a6; top: 150px; }
+#JoinModal .modal-body #btn_join_chkemail { color: #95a5a6; top: 287px; }
 #JoinModal .modal-body .join-form {font-size: 14px;width: 100%;height: 48px;margin-bottom: 10px;padding: 12px 6px 12px 10px;border: 1px solid #ccc;background-color: #fff;line-height: 14px;box-sizing: border-box;}
 #JoinModal .modal-body .btn_submit {font-size: 15px;color: #fafafa;border: 1px solid #27ae60;background-color: #2ecc71;width: 100%;margin: 19px 0 0 0;padding: 14px 0px;cursor: pointer;}
 #JoinModal .modal-dialog .btn_close {position: absolute;top: -31px;right: 0;width: 26px;height: 26px;font-size: 26px;line-height: 26px;text-align: center;color: #fafafa;}

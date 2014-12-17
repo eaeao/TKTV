@@ -18,7 +18,7 @@ background-size: 100% 80%;background-position: bottom left;background-repeat: no
 #container #content #div_content_short #div_short_con {text-align: left;}
 #container #content #div_content_short #div_short_con li {font-size: 14px;color:#fff;line-height: 45px;text-align: left;width: 670px;}
 #container #content #div_content_short #div_short_con li span {float:right;padding-right:10px}
-#container #content .div_content_subimg {width: 266px;height:320px;background-color: #000;margin:5px 5px 0 0;background-position: 50% 50%;background-repeat: no-repeat;background-size: auto 100%;}
+#container #content .div_content_subimg {position: relative;width: 266px;height:320px;background-color: #000;margin:5px 5px 0 0;background-position: 50% 50%;background-repeat: no-repeat;background-size: auto 100%;float: left;}
 #container #content .div_content_subimg:last-child {margin-right:0}
 #container #content .div_content_subimg #div_subimg_con {position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-image: url(/static/img/main/card_title_bg.png);
 background-size: 100% 80%;background-position: bottom left;background-repeat: no-repeat;cursor: pointer}
@@ -47,7 +47,7 @@ background-size: 100% 80%;background-position: bottom left;background-repeat: no
 #container #aside #div_aside_hot #p_hot_title {background-color: #eee;color: #e67e22;font-size: 14px;font-weight: bold;padding: 5px 10px;margin-bottom: 10px;border-bottom: 1px solid #ccc;}
 #container #aside #div_aside_hot .li_hot_list {padding: 3px 5px;font-size: 13px;cursor: pointer;height: 25px;}
 #container #aside #div_aside_hot .li_hot_list:hover {color:#e67e22;font-weight: bold;}
-#container #aside #div_aside_hot .li_hot_list b {color: #e67e22;margin: 0 5px;}
+#container #aside #div_aside_hot .li_hot_list b {color: #e67e22;margin: 0 5px;font-size: 13px;}
 #container #aside #div_aside_mainbbaner {min-height: 173px;padding: 0;margin: 0;margin-top: 4px;}
 #container #aside #div_aside_banners {position: relative;height: 100%;padding: 0;margin: 0;margin-top: 4px;}
 #container #aside #div_aside_banners .img_banners_banner {margin: 5px 5%;width: 90%;cursor: pointer;}

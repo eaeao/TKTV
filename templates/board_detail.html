@@ -27,7 +27,7 @@
             </div>
             <div class="p_body_con"><pre>{{ contents|safe }}</pre></div>
             <div id="div_comment_input">
-                <p id="p_comment_length">200 / 200 자</p>
+                <p id="p_comment_length">0 / 200 자</p>
                 <p id="p_comment_title">댓글쓰기</p>
                 {% if user.id %}
                     <textarea class="form-control" id="textarea_comment_txt" maxlength="200" rows="3" placeholder="댓글을 입력하세요."></textarea>
@@ -54,6 +54,11 @@
             if(fontSize > 12) fontSize -= 2;
             setFontSize();
         });
+
+        $("#div_comment_input #textarea_comment_txt").keyup(function(){
+            $("#div_comment_input #p_comment_length").text($(this).val().length+" / 200 자");
+        });
+
         function setFontSize(){
             $(".p_body_con pre").css({"font-size":fontSize+"px"})
             $(".p_body_con pre *").css({"font-size":fontSize+"px"})

@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.models import User
-from tktv.main.models import UserProfile, UserGrade, Main, TopLogo, TopBannerLeft, TopBannerRight, SideBannerLeft, \
+from tktv.main.models import UserProfile, Main, TopLogo, TopBannerLeft, TopBannerRight, SideBannerLeft, \
     SideBannerRight, SubMenu, MainMenu, RightBanner
 
 # Register your models here.
@@ -45,32 +45,8 @@ class UserAdmin(AuthUserAdmin):
     list_display = ('id','username','first_name','is_active','date_joined')
     inlines = [UserProfileInline]
 
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('id','user','src','grade')
-
-class UserGradeAdmin(admin.ModelAdmin):
-    list_display = ('id','grade','level')
-
 class PermissionAdmin(admin.ModelAdmin):
     list_display = ('id','name')
-
-class TopLogoAdmin(admin.ModelAdmin):
-    list_display = ('id','src','url')
-
-class TopBannerLeftAdmin(admin.ModelAdmin):
-    list_display = ('id','src','url')
-
-class TopBannerRightAdmin(admin.ModelAdmin):
-    list_display = ('id','src','url')
-
-class SideBannerLeftAdmin(admin.ModelAdmin):
-    list_display = ('id','src','url')
-
-class SideBannerRightAdmin(admin.ModelAdmin):
-    list_display = ('id','src','url')
-
-class RightBannerAdmin(admin.ModelAdmin):
-    list_display = ('id','src','url')
 
 class MainAdmin(admin.ModelAdmin):
     list_display = ('id','title')
@@ -84,14 +60,6 @@ class SubMenuAdmin(admin.ModelAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-admin.site.register(UserGrade, UserGradeAdmin)
-admin.site.register(UserProfile, UserProfileAdmin)
-admin.site.register(TopLogo, TopLogoAdmin)
-admin.site.register(TopBannerLeft, TopBannerLeftAdmin)
-admin.site.register(TopBannerRight, TopBannerRightAdmin)
-admin.site.register(SideBannerLeft, SideBannerLeftAdmin)
-admin.site.register(SideBannerRight, SideBannerRightAdmin)
-admin.site.register(RightBanner, RightBannerAdmin)
 admin.site.register(Main, MainAdmin)
 admin.site.register(MainMenu, MainMenuAdmin)
 admin.site.register(SubMenu, SubMenuAdmin)

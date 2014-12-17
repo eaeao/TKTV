@@ -153,7 +153,7 @@ def get_or_none(model,order=None, **kwargs):
 def getMain():
     mainImg = Main.objects.all().order_by("-id")
     if mainImg :
-        mainImg = mainImg[0].get_img()
+        mainImg = mainImg[0]
 
     main_menu = MainMenu.objects.all()
 

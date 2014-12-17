@@ -20,17 +20,17 @@
             <div class="col-lg-12" id="div_content_short">
                 <p id="p_short_title">공지사항</p>
                 <div id="div_short_con">
-                <ul>
-                    {% for notice in notices %}
-                        <li onclick="location.href='/board/detail/{{ notice.id }}';" class="click">{{ notice.title }} <span>{{ notice.date_updated|date:"Y.m.d H:i:s" }}</span></li>
-                    {% endfor %}
-                </ul>
+                    <ul>
+                        {% for notice in notices %}
+                            <li onclick="location.href='/board/detail/{{ notice.id }}';" class="click">{{ notice.title }} <span>{{ notice.date_updated|date:"Y.m.d H:i:s" }}</span></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="row">
             {% for sub in subimg %}
-                <div class="col-lg-4 div_content_subimg" style="background-image:url({% if sub.ele.get_src.src %}{{ sub.ele.get_src.src.url }}{% else %}/static/img/main/blank_img.jpg{% endif %})" onclick="location.href='/board/detail/{{ sub.ele.id }}';">
+                <div class="div_content_subimg" style="background-image:url({% if sub.ele.get_src.src %}{{ sub.ele.get_src.src.url }}{% else %}/static/img/main/blank_img.jpg{% endif %})" onclick="location.href='/board/detail/{{ sub.ele.id }}';">
                     <div id="div_subimg_con">
                         <div id="div_con_group">
                             <span id="span_con_menu" style="background-color:{{ sub.color }}">{{ sub.ele.submenu.main_menu.name }}</span>
@@ -62,13 +62,17 @@
     </div>
     <div id="aside">
         <div class="col-lg-12" id="div_aside_topimg">
-            <iframe width="300" height="169" src="//www.youtube.com/embed/UT1DpISFAnY?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            <iframe width="300" height="169" src="//www.youtube.com/embed/-db6fDjAw-8?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="col-lg-12" id="div_aside_hot">
             <p id="p_hot_title">많이 본 게시물</p>
             <ul>
                 {% for hot in hotlist %}
-                    <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
+                    {% if forloop.counter0 < 3 %}
+                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> <b>[{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</b></li>
+                    {% else %}
+                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -76,7 +80,7 @@
             <img src="/static/img/main/main_banner.png">
         </div>
         <div class="col-lg-12" id="div_aside_banners">
-            {% for banner in getMain.mainImg.right_banner %}
+            {% for banner in getMain.mainImg.get_img.right_banner %}
                 <img class="img_banners_banner" src="{{ banner.src.url }}" onclick="location.href='{{ banner.url }}';">
             {% endfor %}
         </div>
