@@ -18,7 +18,7 @@
     <div id="top_menu">
         <div id="content">
             <ul id="ul_top_quick">
-                <li>제보하기</li>
+                <li onclick="location.href='/page/28';">제보하기</li>
                 <li>광고문의</li>
                 {% if user.id %}
                     <li role="presentation" class="dropdown navbar-right" id="li_top_profile" style="float:right">
@@ -87,7 +87,7 @@
             <div id="div_mainmenu_search">
                 <form method="get">
                     <input type="text" class="form-control" id="input_search_txt" name="query" placeholder="검색">
-                    <button><i class="xe-magnifier" id="btn_search_click"></i></button>
+                    <button id="btn_search_click"><i class="xe-magnifier"></i></button>
                 </form>
             </div>
         </div>

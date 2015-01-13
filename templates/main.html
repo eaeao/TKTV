@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12" id="div_content_short">
-                <p id="p_short_title">공지사항</p>
+                <p id="p_short_title" onclick="location.href='/board/26/';">공지사항</p>
                 <div id="div_short_con">
                     <ul>
                         {% for notice in notices %}
@@ -49,12 +49,12 @@
                         <div class="div_category_element_top click" onclick="location.href='/board/detail/{{ m1.id }}';">
                             {% if m1.get_src.is_visible %}<div class="div_element_img" style="background-image:url({{ m1.get_src.src.url}})"></div>{% endif %}
                             <p class="p_element_date">[{{ m1.date_updated|date:"Y-m-d H:i:s" }}]</p>
-                            <p class="p_element_title">{{ m1.title }}</p>
-                            <p class="p_element_con">{{ m1.get_con|striptags }}</p>
+                            <p class="p_element_title">{{ m1.title|safe }}</p>
+                            <p class="p_element_con">{{ m1.get_con|safe }}</p>
                         </div>
                     {% endfor %}
                     {% for m_ele in mm|get_board|slice:"1:6" %}
-                        <p class="div_category_element click" onclick="location.href='/board/detail/{{ m_ele.id }}';"><i class="xe-angle-right"></i> {{ m_ele.title }}</p>
+                        <p class="div_category_element click" onclick="location.href='/board/detail/{{ m_ele.id }}';"><i class="xe-angle-right"></i> {{ m_ele.title|safe }}</p>
                     {% endfor %}
                 </div>
             {% endfor %}
@@ -64,14 +64,19 @@
         <div class="col-lg-12" id="div_aside_topimg">
             <iframe width="300" height="169" src="//www.youtube.com/embed/-db6fDjAw-8?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
+        <div class="row" id="div_aside_quick">
+            <div class="col-lg-4 div_quick_btn" id="quick_btn_1" onclick="location.href='/page/28';"><i class="xe-pencil-point"></i><br/>기사제보</div>
+            <div class="col-lg-4 div_quick_btn" id="quick_btn_2" onclick="location.href='/board/29';"><i class="xe-status-check-homeout"></i><br/>기자 ROOM</div>
+            <div class="col-lg-4 div_quick_btn" id="quick_btn_3" onclick="location.href='/page/27';"><i class="xe-user-info"></i><br/>시민기자신청</div>
+        </div>
         <div class="col-lg-12" id="div_aside_hot">
             <p id="p_hot_title">많이 본 게시물</p>
             <ul>
                 {% for hot in hotlist %}
                     {% if forloop.counter0 < 3 %}
-                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> <b>[{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</b></li>
+                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> <b>[{{ hot.submenu.main_menu.name }}] {{ hot.title|safe|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</b></li>
                     {% else %}
-                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
+                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|safe|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -98,7 +103,7 @@
                 "src":"{% if hl.get_src.src %}{{ hl.get_src.src.url }}{% else %}/static/img/main/blank_img.jpg{% endif %}",
                 "menu":"{{ hl.submenu.main_menu.name }}",
                 "title":"{{ hl.title }}",
-                "con":"{{ hl.get_con|striptags|escapejs }}",
+                "con":"{{ hl.get_con|safe|escapejs }}",
                 "date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}",
                 "link":"/board/detail/{{ hl.id }}"
             });
@@ -125,7 +130,7 @@
             $("#div_content_mainimg #div_con_group").hide().fadeIn(500);
             $("#div_content_mainimg #span_con_menu").text(headimg[i]['menu']);
             $("#div_content_mainimg #p_con_title").text(headimg[i]['title']);
-            $("#div_content_mainimg #p_con_con").text(headimg[i]['con']);
+            $("#div_content_mainimg #p_con_con").html(headimg[i]['con']);
             $("#div_content_mainimg #p_con_date").text(headimg[i]['date']);
         }
 

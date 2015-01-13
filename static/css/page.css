@@ -1,6 +1,6 @@
 #container #aside {position:relative;float:left;width:250px;margin: 0;}
 #container #aside #div_aside_submenu {background-color:#fafafa;margin:10px}
-#container #aside #div_aside_submenu #p_submenu_title {font-size: 18px;font-weight: bold;line-height: 55px;border-bottom: 1px solid #eee;background-color: #2a84bf;color: #fff;padding-left: 20px;margin-bottom: 15px;}
+#container #aside #div_aside_submenu #p_submenu_title {font-size: 18px;font-weight: 600;line-height: 55px;border-bottom: 1px solid #eee;background-color: #2a84bf;color: #fff;padding-left: 20px;margin-bottom: 15px;}
 #container #aside #div_aside_submenu #p_submenu_title i {font-size: 18px;color: #ccc;}
 #container #aside #div_aside_submenu .li_submenu_list {color:#666;font-size: 14px;margin-left: 20px;margin-bottom: 15px;cursor: pointer}
 #container #aside #div_aside_submenu .li_submenu_list:hover {color:#000}
@@ -8,4 +8,4 @@
 
 #container #content{float:right;position:relative;width:870px;height:100%;margin:0;}
 #container #content .div_con_title { border-bottom: 2px solid #aaa;padding: 5px; }
-#container #content .div_con_title .span_title_sub {font-weight:bold;font-size: 14px;color: #e67e22;}
+#container #content .div_con_title .span_title_sub {font-weight:600;font-size: 14px;color: #e67e22;}

@@ -14,12 +14,12 @@ def main(request):
     headline = Board.objects.filter(is_headline=True).order_by("-id")
     hotlist = Board.objects.all().order_by("-hits")[:10]
 
-    notices = Board.objects.filter(submenu=26).order_by("-id")
+    notices = Board.objects.filter(submenu=26).order_by("-date_updated")
 
     subimg = []
-    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=2,is_headline=True),"color":"#f39c12"})
-    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=3,is_headline=True),"color":"#27ae60"})
-    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=5,is_headline=True),"color":"#2980b9"})
+    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=2),"color":"#f39c12"})
+    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=3),"color":"#27ae60"})
+    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=5),"color":"#2980b9"})
     context = {
         'headline':headline,
         'hotlist':hotlist,

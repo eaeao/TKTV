@@ -29,7 +29,7 @@
                 {% for ele in list %}
                     <tr class="div_list_click" onclick="location.href='/board/detail/{{ ele.id }}';">
                         <td align="center">{{ ele.id }}</td>
-                        <td>{{ ele.title }}</td>
+                        <td>{{ ele.title|safe }}</td>
                         <td align="center">{{ ele.user.first_name }}</td>
                         <td align="center">{{ ele.date_updated|date:"Y-m-d H:i:s" }}</td>
                         <td align="center">{{ ele.hits }}</td>
@@ -37,12 +37,26 @@
                 {% endfor %}
             {% else %}
                 <tr>
-                <td colspan="5" align="center">작성된 게시물이 없습니다.</td>
+                    <td colspan="5" align="center">작성된 게시물이 없습니다.</td>
                 </tr>
             {% endif %}
             </tbody>
         </table>
-
+        {% if list %}
+            <div class="paginate_complex">
+                <a href="?page={{ page_range|first|add:-1 }}" class="direction prev"><span></span> 이전</a>
+                {% for pn in page_range %}
+                    {% if pn <= last_page_num %}
+                        {% if pn == page %}
+                            <strong>{{ pn }}</strong>
+                        {% else %}
+                            <a href="?page={{ pn }}">{{ pn }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <a href="?page={{ page_range|first|add:10 }}" class="direction next">다음 <span></span></a>
+            </div>
+        {% endif %}
 
     </div>
     <script>

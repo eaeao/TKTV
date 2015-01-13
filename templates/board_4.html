@@ -24,10 +24,23 @@
                             <p class="p_img_tmp"><i class="xe-image"></i></p>
                         </div>
                     {% endif %}
-                    <p class="p_element_title">{{ ele.title }}</p>
+                    <p class="p_element_title">{{ ele.title|safe }}</p>
                     <p class="p_element_date">[{{ ele.date_updated|date:"Y-m-d H:i:s" }}]</p>
                 </div>
             {% endfor %}
+            <div class="col-lg-12 paginate_complex">
+                <a href="?page={{ page_range|first|add:-1 }}" class="direction prev"><span></span> 이전</a>
+                {% for pn in page_range %}
+                    {% if pn <= last_page_num %}
+                        {% if pn == page %}
+                            <strong>{{ pn }}</strong>
+                        {% else %}
+                            <a href="?page={{ pn }}">{{ pn }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <a href="?page={{ page_range|first|add:10 }}" class="direction next">다음 <span></span></a>
+            </div>
         {% else %}
             <div class="col-lg-12 div_list_element">
                 작성된 게시물이 없습니다.
@@ -36,5 +49,6 @@
     </div>
     <script>
         $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+        $("#container #content .div_list_element").last().css({"float":"none"});
     </script>
 {% endblock %}

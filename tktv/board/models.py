@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import urllib2
 
 from django.contrib.auth.models import User
 from django.db import models
-from tktv.main.models import SubMenu
+from django.utils.html import strip_tags
+from tktv.main.models import SubMenu, encode_con
 
 # Create your models here.
 
@@ -21,12 +23,13 @@ class Board(models.Model):
             return src[0]
         return None
 
+    @property
     def get_con(self):
-        con = self.con
+        con = strip_tags(encode_con(self.con))
         for i in range(0,10) :
             con = con.replace("{{%d}}"%i, "")
-        if con.__len__() > 230 :
-            con = "%s..."%con[:230]
+        if con.__len__() > 1500 :
+            con = "%s..."%con[:1500]
         return con
 
     def __unicode__(self):

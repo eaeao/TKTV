@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import urllib
+import urllib2
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
 from django.db import models
@@ -158,3 +160,6 @@ def getMain():
     main_menu = MainMenu.objects.all()
 
     return {'mainImg':mainImg,'main_menu':main_menu}
+
+def encode_con(con):
+    return urllib.unquote_plus(urllib2.unquote(con.encode('ascii', 'xmlcharrefreplace')))
