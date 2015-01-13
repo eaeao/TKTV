@@ -1,0 +1,18 @@
+{% if list %}
+    <div class="paginate_complex">
+        <a href="?page={{ page_range|first|add:-1 }}" class="direction prev"><span></span> 이전</a>
+        {% for pn in page_range %}
+            {% if pn <= last_page_num %}
+                {% if pn == page %}
+                    <strong>{{ pn }}</strong>
+                {% else %}
+                    <a href="?page={{ pn }}">{{ pn }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <a href="?page={{ page_range|first|add:10 }}" class="direction next">다음 <span></span></a>
+    </div>
+{% endif %}
+{% if submenu.permission_write.level <= user.get_profile.grade.level %}
+    <button type="button" class="btn btn-default" id="btn_write" onclick="location.href='/board/write/{{ submenu.id }}';"><i class="xe-pen"></i> 글쓰기</button>
+{% endif %}

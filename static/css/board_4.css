@@ -38,3 +38,5 @@
 .paginate_complex .prev span{*left:-4px;margin-right:1px;border:3px solid;border-top:solid #fff;border-bottom:solid #fff;border-left:0}
 .paginate_complex .next span{margin-left:1px;border:3px solid;border-top:solid #fff;border-bottom:solid #fff;border-right:0}
 /* //UI Object */
+
+#btn_write {float:right;margin-top: -40px;}

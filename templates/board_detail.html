@@ -1,5 +1,6 @@
 {% extends "head.html" %}
 {% block content %}
+    {% load hitcount_tags %}
     <div id="aside" class="row">
         <div id="div_aside_submenu" class="div_feed">
             <p id="p_submenu_title"><i class="xe-right-circle"></i> {{ submenu.main_menu.name }}</p>
@@ -18,7 +19,7 @@
             <p class="p_body_title">{{ board.title }}</p>
             <p class="p_body_font">글자크기 : <button class="btn btn-xs btn-default" id="btn_font_up"><i class="xe-plus"></i></button><button class="btn btn-xs btn-default" id="btn_font_down"><i class="xe-minus"></i></button></p>
             <div class="div_body_info dropdown">
-                <a id="reporter" role="button" data-toggle="dropdown" href="#">{{ board.user.first_name }} {{ board.user.get_profile.grade.grade }}</a> | 조회수:{{ board.hits }} | [{{ board.date_updated|date:"Y-m-d H:i:s" }}]
+                <a id="reporter" role="button" data-toggle="dropdown" href="#">{{ board.user.first_name }} {{ board.user.get_profile.grade.grade }}</a> | 조회수:{% get_hit_count for board %} | [{{ board.date_updated|date:"Y-m-d H:i:s" }}]
                 <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="reporter">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">다른 기사보기</a></li>
                     <li role="presentation" class="divider"></li>
@@ -26,6 +27,13 @@
                 </ul>
             </div>
             <div class="p_body_con"><pre>{{ contents|safe }}</pre></div>
+            <hr/>
+            <div class="col-lg-12" align="right">
+                {% if user.get_profile.grade.level == 10 or board.user == user %}
+                    <button type="button" class="btn btn-default" id="btn_modify" onclick="location.href='/board/modify/{{ board.id }}';"><i class="xe-scissors"></i> 수정</button>
+                    <button type="button" class="btn btn-default" id="btn_delete"><i class="xe-wastebasket"></i> 삭제</button>
+                {% endif %}
+            </div>
             <div id="div_comment_input">
                 <p id="p_comment_length">0 / 200 자</p>
                 <p id="p_comment_title">댓글쓰기</p>
@@ -40,6 +48,11 @@
             <div class="div_comment_list">&nbsp;</div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {% get_hit_count_javascript for board %}
+        });
+    </script>
     <script>
         var fontSize = 14;
         $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
@@ -63,6 +76,16 @@
             $(".p_body_con pre").css({"font-size":fontSize+"px"})
             $(".p_body_con pre *").css({"font-size":fontSize+"px"})
         }
+
+        {% if user.get_profile.grade.level == 10 or board.user == user %}
+            $("#btn_delete").click(function(){
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    $(".div_contents_body").load("/board/delete/",{'csrfmiddlewaretoken':$("#wrap > input[name=csrfmiddlewaretoken]").val(),'board_id':'{{board.id}}'},function(){
+                        window.location.href = "/board/{{ submenu.id }}?n=" + new Date().getTime();
+                    });
+                }
+            });
+        {% endif %}
 
         {% if user.id %}
             $("#btn_comment_write").click(function(){

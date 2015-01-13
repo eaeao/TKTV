@@ -11,7 +11,7 @@ class UserGrade(models.Model):
     level = models.IntegerField(unique=True)
 
     def __unicode__(self):
-        return u'[%d] %s' %(self.id,self.grade)
+        return u'[LV.%d] %s' %(self.level,self.grade)
 
 class UserProfile(models.Model):
     #required by the auth model

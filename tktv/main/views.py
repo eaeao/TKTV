@@ -6,20 +6,23 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+from hitcount.models import HitCount
 from tktv.board.models import Board
 from tktv.main.models import getMain, get_or_none, MainMenu, SubMenu, UserProfile
 
 
 def main(request):
     headline = Board.objects.filter(is_headline=True).order_by("-id")
-    hotlist = Board.objects.all().order_by("-hits")[:10]
+    hotlist = []
+    for hc in HitCount.objects.all().order_by("-hits")[0:10]:
+        hotlist.append(hc.content_object)
 
-    notices = Board.objects.filter(submenu=26).order_by("-date_updated")
+    notices = Board.objects.filter(submenu=26,is_headline=True).order_by("-date_updated")
 
     subimg = []
-    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=2),"color":"#f39c12"})
-    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=3),"color":"#27ae60"})
-    subimg.append({"ele":get_or_none(Board,order="-",submenu__main_menu__order=5),"color":"#2980b9"})
+    subimg.append({"ele":Board.objects.filter(submenu__main_menu__order=2).order_by("-date_updated")[0],"color":"#f39c12"})
+    subimg.append({"ele":Board.objects.filter(submenu__main_menu__order=3).order_by("-date_updated")[0],"color":"#27ae60"})
+    subimg.append({"ele":Board.objects.filter(submenu__main_menu__order=5).order_by("-date_updated")[0],"color":"#2980b9"})
     context = {
         'headline':headline,
         'hotlist':hotlist,

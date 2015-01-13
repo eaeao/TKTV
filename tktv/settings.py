@@ -37,6 +37,8 @@ AUTH_PROFILE_MODULE = "main.UserProfile"
 # Application definition
 
 INSTALLED_APPS = (
+    'devserver',
+    'hitcount',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +49,10 @@ INSTALLED_APPS = (
     'tktv.board',
     'tktv.page',
 )
+
+HITCOUNT_KEEP_HIT_ACTIVE = { 'days': 1 }
+HITCOUNT_HITS_PER_IP_LIMIT = 0
+HITCOUNT_EXCLUDE_USER_GROUP = ( 'Staff', )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
