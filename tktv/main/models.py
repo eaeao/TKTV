@@ -112,6 +112,7 @@ MODE_IN_SUBMENU_CHOICES = (
     (2, '일반 게시판'),
     (3, '웹진'),
     (4, '갤러리'),
+    (5, '입력양식'),
 )
 
 class SubMenu(models.Model):
@@ -134,6 +135,8 @@ class SubMenu(models.Model):
             return "/board/%d"%self.id
         elif self.mode == 4 :
             return "/board/%d"%self.id
+        elif self.mode == 5 :
+            return "/form/%d"%self.id
 
     def __unicode__(self):
         return u'%s → %s(%d)' %(self.main_menu,self.name,self.order)
@@ -163,3 +166,16 @@ def getMain():
 
 def encode_con(con):
     return urllib.unquote_plus(urllib2.unquote(con.encode('ascii', 'xmlcharrefreplace')))
+
+def upload(req):
+    if req.method == 'POST':
+        if 'file' in req.FILES:
+            file = req.FILES['file']
+            filename = file._name
+
+            fp = open('%s/%s' % ("/root/www/tktv/media/upload", filename) , 'wb')
+            for chunk in file.chunks():
+                fp.write(chunk)
+            fp.close()
+            return '%s/%s' % ("upload/", filename)
+    return None

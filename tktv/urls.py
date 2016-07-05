@@ -28,6 +28,9 @@ urlpatterns = patterns('',
     url(r'^board/modify/(?P<board_id>.*)$', 'tktv.board.views.board_modify'),
     url(r'^board/(?P<sub_id>.*)$', 'tktv.board.views.board'),
     url(r'^page/(?P<sub_id>.*)$', 'tktv.page.views.page'),
+    url(r'^form/(?P<sub_id>.*)$', 'tktv.form.views.form'),
+    url(r'^alimi/$', 'tktv.alimi.views.alimi'),
+    url(r'^alimi/list/$', 'tktv.alimi.views.alimi_list'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )
 urlpatterns += staticfiles_urlpatterns()

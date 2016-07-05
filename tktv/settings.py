@@ -48,6 +48,8 @@ INSTALLED_APPS = (
     'tktv.main',
     'tktv.board',
     'tktv.page',
+    'tktv.form',
+    'tktv.alimi',
 )
 
 HITCOUNT_KEEP_HIT_ACTIVE = { 'days': 1 }

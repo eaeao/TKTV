@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label for="input_title">제목</label>
                         {% if board %}
-                            <input type="text" class="form-control" id="input_title" name="input_title" placeholder="{{ board.title }}">
+                            <input type="text" class="form-control" id="input_title" name="input_title" placeholder="제목을 입력해주세요." value="{{ board.title }}">
                         {% else %}
                             <input type="text" class="form-control" id="input_title" name="input_title" placeholder="제목을 입력해주세요.">
                         {% endif %}
