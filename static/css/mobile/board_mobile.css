@@ -1,0 +1,139 @@
+.div_page_submenu {background-color: #3A4360;float: none;text-align: left;padding: 20px;}
+.li_page_submenu_title {font-size: 18px;font-weight: 700;color: #FFF;margin-bottom: 5px;}
+.li_page_submenu_list {font-size: 14px;padding: 10px 0px;border-bottom: 1px solid #31384e;color: rgba(255,255,255,0.5);cursor: pointer;list-style: none;}
+.li_page_submenu_list.active {color: #fff;}
+.li_page_submenu_list:hover {color: #FFF;}
+.li_page_submenu_list i {margin-top:2px}
+.ul_page_tabmenu {margin-top:15px;display: inline-block;}
+.ul_page_tabmenu li {background-color:#FFF;box-shadow: 0 3px 3px 0 #EDEFF3;border-radius: 0;}
+.ul_page_tabmenu li a {border-bottom: 3px solid #FFF;border-radius:0}
+.ul_page_tabmenu li a:hover {background-color:#FFF;border-bottom: 3px solid #E0004F;color:#E0004F}
+.ul_page_tabmenu li.active a {background-color: #FFF;bodiv_page_editorrder-bottom: 3px solid #E0004F;}
+.ul_page_tabmenu li.active a:hover {background-color: #FFF;border-bottom: 3px solid #E0004F;color:#E0004F}
+.ul_page_tabmenu  li.active>a, .ul_page_tabmenu  li.active>a:focus, .ul_page_tabmenu  li.active>a:hover {color: #E0004F;}
+
+#sub-body { width:100%;padding:20px;font-size:14px}
+.board_title{
+    position:relative;
+    width:100%;
+    text-align: center;
+    font-weight:bold;
+    font-size:13px;
+    background-color: #e5e5e5;
+    color:#888;
+    border-radius:10px;
+    border: 1px solid #ccc;
+}
+
+.board_title #no{
+    position:relative;
+    width:10%;
+    line-height:30px;
+    float:left;
+}
+
+.board_title #title{
+    position: relative;
+    width: 75%;
+    line-height: 30px;
+    float: left;
+}
+
+.board_title #count{
+    position: relative;
+    width: auto;
+    line-height: 30px;
+}
+
+.board_list_notice{
+    background-color:#ecf0f1;
+}
+
+.board_list_notice #no{
+    color:#183173;
+}
+
+.board_list_notice #title{
+    font-weight: bold;
+}
+
+.board_list{
+    position:relative;
+    width:100%;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    margin: 2px 0;
+    padding: 2px 0;
+    cursor:pointer;
+}
+
+.board_list:hover{
+    background-color:RGBA(0,0,0,0.05);
+}
+
+.board_list #no{
+    position:relative;
+    text-align: center;
+    line-height:50px;
+    padding: 0 10px;
+    float:left;
+}
+
+.board_list #title{
+    position:relative;
+    width:80%;
+    line-height:25px;
+    font-size:18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
+}
+
+.board_list #name{
+    position:relative;
+    width:auto;
+    line-height:25px;
+    float:left;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.board_list #wdate{
+    position:relative;
+    width:auto;
+    line-height:25px;
+    font-size:12px;
+}
+
+.board_list #count{
+    position:absolute;
+    top:0;
+    right:0;
+    width:60px;
+    text-align: center;
+    line-height:50px;
+    font-size:12px;
+}
+
+/* UI Object */
+.paginate_complex {padding:15px 0;line-height:normal;text-align:center}
+.paginate_complex a,
+.paginate_complex strong{display:inline-block;position:relative;z-index:2;margin:0 -3px;padding:1px 8px;border-left:1px solid #d6d6d6;border-right:1px solid #d6d6d6;background-color:#fff;font:600 12px/16px;color:#323232;text-decoration:none;vertical-align:top}
+.paginate_complex a:hover,
+.paginate_complex a:active,
+.paginate_complex a:focus{background-color:#f8f8f8}
+.paginate_complex strong{color:#ff8600}
+.paginate_complex .direction{border:0;font-weight:normal;color:#767676;text-decoration:none !important;z-index:1}
+.paginate_complex .direction:hover,
+.paginate_complex .direction:active,
+.paginate_complex .direction:focus{color:#323232;background-color:#fff}
+.paginate_complex .prev{border-left:0}
+.paginate_complex .next{border-right:0}
+.paginate_complex .direction span{display:inline-block;position:relative;top:4px;width:0;height:0;font-size:0;line-height:0;vertical-align:top}
+.paginate_complex .prev span{*left:-4px;margin-right:1px;border:3px solid;border-top:solid #fff;border-bottom:solid #fff;border-left:0}
+.paginate_complex .next span{margin-left:1px;border:3px solid;border-top:solid #fff;border-bottom:solid #fff;border-right:0}
+/* //UI Object */
+
+
+#btn_write {float:right;margin-top: -40px;}

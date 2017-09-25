@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
-from django.contrib.auth.models import User
-from tktv.main.models import UserProfile, Main, TopLogo, TopBannerLeft, TopBannerRight, SideBannerLeft, \
-    SideBannerRight, SubMenu, MainMenu, RightBanner
 
 # Register your models here.
+from django.contrib.auth.models import User
+
+from tktv.main.models import UserProfile, TopLogo, TopBannerLeft, TopBannerRight, SideBannerLeft, SideBannerRight, \
+    RightBanner, BottomBanner, Main, MainMenu, SubMenu
+
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
@@ -41,6 +42,10 @@ class RightBannerInline(admin.StackedInline):
     model = RightBanner
     can_delete = True
 
+class BottomBannerInline(admin.StackedInline):
+    model = BottomBanner
+    can_delete = True
+
 class UserAdmin(AuthUserAdmin):
     list_display = ('id','username','first_name','is_active','date_joined')
     inlines = [UserProfileInline]
@@ -50,7 +55,7 @@ class PermissionAdmin(admin.ModelAdmin):
 
 class MainAdmin(admin.ModelAdmin):
     list_display = ('id','title')
-    inlines = [TopLogoInline, TopBannerLeftInline, TopBannerRightInline, SideBannerLeftInline, SideBannerRightInline, RightBannerInline]
+    inlines = [TopLogoInline, TopBannerLeftInline, TopBannerRightInline, SideBannerLeftInline, SideBannerRightInline, RightBannerInline, BottomBannerInline]
 
 class MainMenuAdmin(admin.ModelAdmin):
     list_display = ('id','name','order','url')

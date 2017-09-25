@@ -1,31 +1,33 @@
-# -*- coding: utf-8 -*-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
-
+from django.core.paginator import Paginator, Page
+from django.db.models import Q
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-# Create your views here.
-from hitcount.models import HitCount
 from tktv.board.models import Board
-from tktv.main.models import getMain, get_or_none, MainMenu, SubMenu, UserProfile
+from tktv.main.models import getMain, UserProfile
 
 
 def main(request):
-    headline = Board.objects.filter(is_headline=True).order_by("-id")
+    headline = Board.objects.filter(is_headline=True).order_by("-date_updated")
     hotlist = []
-    for hc in HitCount.objects.all().order_by("-hits")[0:10]:
-        hotlist.append(hc.content_object)
+    for board in Board.objects.all().order_by("-hits")[0:10]:
+        hotlist.append(board)
+
+    recentlist = Board.objects.filter(submenu__main_menu__id=2).order_by("-id")[:10]
 
     notices = Board.objects.filter(submenu=26,is_headline=True).order_by("-date_updated")
 
     subimg = []
-    subimg.append({"ele":Board.objects.filter(submenu__main_menu__order=2).order_by("-date_updated")[0],"color":"#f39c12"})
-    subimg.append({"ele":Board.objects.filter(submenu__main_menu__order=3).order_by("-date_updated")[0],"color":"#27ae60"})
-    subimg.append({"ele":Board.objects.filter(submenu__main_menu__order=5).order_by("-date_updated")[0],"color":"#2980b9"})
+    subimg.append({"ele":Board.objects.filter(submenu__main_menu__id=2).order_by("-date_updated").first(),"color":"#f39c12"})
+    subimg.append({"ele":Board.objects.filter(submenu__main_menu__id=3).order_by("-date_updated").first(),"color":"#27ae60"})
+    subimg.append({"ele":Board.objects.filter(submenu__main_menu__id=4).order_by("-date_updated").first(),"color":"#2980b9"})
     context = {
         'headline':headline,
         'hotlist':hotlist,
+        'recentlist':recentlist,
         'subimg':subimg,
         'notices':notices,
         'getMain':getMain(),
@@ -80,3 +82,37 @@ def user_join_get(request):
         if query :
             return HttpResponse(0);
     return HttpResponse(1);
+
+
+def search_board(request):
+    query = request.GET.get("query","")
+    page = int(request.GET.get('page', 1))
+
+    list = Board.objects.filter(Q(title__icontains=query)|Q(con__icontains=query))
+    list = Paginator(list, 10)
+
+    context = {
+        'query':query,
+        'list': list.page(page),
+        'getMain': getMain(),
+        'user': request.user,
+        'appname': 'search'
+    }
+    return render(request, 'search_board.html', context)
+
+
+def search_page(request):
+    query = request.GET.get("query","")
+    page = int(request.GET.get('page', 1))
+
+    list = Page.objects.filter(con__icontains=query)
+    list = Paginator(list, 10)
+
+    context = {
+        'query':query,
+        'list': list.page(page),
+        'getMain': getMain(),
+        'user': request.user,
+        'appname': 'search'
+    }
+    return render(request, 'search_page.html', context)

@@ -1,6 +1,6 @@
 {% extends "head.html" %}
 {% block content %}
-    {% if submenu.permission_write.level <= user.get_profile.grade.level %}
+    {% if submenu.permission_write.level <= user.profile.grade.level %}
         <div id="aside" class="row">
             <div id="div_aside_submenu" class="div_feed">
                 <p id="p_submenu_title"><i class="xe-right-circle"></i> {{ submenu.main_menu.name }}</p>
@@ -48,9 +48,9 @@
                     <hr/>
                     <div class="form-group">
                         {% if board %}
-                            <button type="submit" class="btn btn-default">수정 완료</button>
+                            <button type="button" onclick="submit_board()" class="btn btn-default">수정 완료</button>
                         {% else %}
-                            <button type="submit" class="btn btn-default">작성 완료</button>
+                            <button type="button" onclick="submit_board()" class="btn btn-default">작성 완료</button>
                         {% endif %}
                     </div>
                 </form>
@@ -59,7 +59,7 @@
         <script>
             var img_file_no = 0;
             addFileInput();
-            $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+            $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
 
             {% if board %}
                 $("#input_con").html("{{ contents|safe|escapejs }}");
@@ -69,6 +69,20 @@
                 var input_html = "<div class='form-group'><label for='exampleInputFile'>첨부 이미지 "+img_file_no+"</label> <input type='file' id='input_file"+img_file_no+"' name='input_file'> <p class='help-block'>추가하실 부분에 <b>&lcub;&lcub;"+img_file_no+"&rcub;&rcub;</b>을 입력해주세요.</p></div>";
                 $("#div_con_imgs").append(input_html);
                 img_file_no++;
+            }
+        </script>
+        {% if submenu.id == 26 %}
+            <script src="http://itktv.cafe24.com:3000/socket.io/socket.io.js"></script>
+            <script>
+                var socket = io.connect("http://itktv.cafe24.com:3000");
+            </script>
+        {% endif %}
+        <script>
+            function submit_board(){
+                {% if submenu.id == 26 %}
+                    socket.emit('newBoard', {'sid':'tktv','no':'{{ recent_board.id|add:"1" }}','title':$("#input_title").val()});
+                {% endif %}
+                document.getElementById("form_contents").submit();
             }
         </script>
     {% endif %}

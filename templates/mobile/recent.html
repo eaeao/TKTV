@@ -1,0 +1,28 @@
+{% extends "mobile/head.html" %}
+{% block content %}
+    <p class="sub_title">
+        <span style="font-size: 1.3em;font-weight: bold;">최근기사</span> | {{ getMain.mainImg.title }}
+    </p>
+
+    <div id="sub-body" style="width:100%;text-align:left">
+
+        <div class="div_recent_first" onclick="location.href='/mobile/board/detail/{{ recentlist.0.id }}';">
+            <div class="div_recent_first_img" style="background-image:url({{ recentlist.0.get_src.src.url }})"></div>
+            <p class="p_recent_first_title">{{ recentlist.0.title|safe }}</p>
+            <p class="p_recent_first_date">조회수:{{ recentlist.0.hits }} | [{{ recentlist.0.date_updated|date:"Y-m-d H:i:s" }}]</p>
+            <p class="p_recent_first_contents">{{ recentlist.0.get_con|safe|slice:":150" }}</p>
+        </div>
+
+        {% for recent in recentlist %}
+            <div class='board_list' onclick="location.href='/mobile/board/detail/{{ recent.id }}';">
+                <p class='title'>[{{ recent.submenu.name }}] {{ recent.title|safe }}</p>
+                <p class="date">조회수:{{ recent.hits }} | [{{ recent.date_updated|date:"Y-m-d H:i:s" }}]</p>
+            </div>
+        {% endfor %}
+    </div>
+    {% if 2 <= user.profile.grade.level %}
+        <div class="text-right" style="padding:20px;padding-top:0">
+            <button type="button" class="btn btn-default" id="btn_write" onclick="location.href='/mobile/board/write/6';"><i class="xe-pen"></i> 글쓰기</button>
+        </div>
+    {% endif %}
+{% endblock %}

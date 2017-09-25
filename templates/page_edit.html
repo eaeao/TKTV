@@ -1,0 +1,52 @@
+{% extends "head.html" %}
+{% load main_extras %}
+{% load staticfiles %}
+{% block content %}
+    <div id="aside" class="row">
+        <div id="div_aside_submenu" class="div_feed">
+            <p id="p_submenu_title"><i class="xe-right-circle"></i> {{ submenu.main_menu.name }}</p>
+            <ul>
+                {% for sub in  submenu.main_menu.get_submenu %}
+                    <a href="{{ sub.get_link }}"><li class="li_submenu_list {% if submenu.name == sub.name %}bold{% endif %}"><i class="xe-angle-right"></i> {{ sub.name }}</li></a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="content" class="row">
+        <div class="col-lg-12 div_con_body">
+            <form method="post" id="form_page_edit">
+                {% csrf_token %}
+                <div class="col-lg-12 div_con_title">
+                    <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
+                </div>
+                <textarea name="contents" id="div_page_contents">{{ contents|safe }}</textarea>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" onclick="history.back()" value="취소" />
+                    <input type="button" id="btn_page_submit" class="btn btn-danger" value="저장" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="//cdn.ckeditor.com/4.5.9/full/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'contents' );
+        CKEDITOR.config.filebrowserUploadUrl = '/page/upload/';
+        CKEDITOR.config.contentsCss = '/static/css/page.css' ;
+        CKEDITOR.config.allowedContent = true;
+        CKEDITOR.config.startupMode = 'source';
+        CKEDITOR.config.height = 500;
+        CKEDITOR.config.font_names =
+            'KoPubDotum Medium;' +
+            '맑은 고딕;' +
+            '굴림;' +
+            '궁서';
+    </script>
+    <script>
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
+
+        $("#btn_page_submit").click(function () {
+            $("#form_page_edit").submit();
+        });
+    </script>
+{% endblock %}

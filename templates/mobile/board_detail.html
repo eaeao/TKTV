@@ -1,0 +1,96 @@
+{% extends "mobile/head.html" %}
+{% load mobile_extras %}
+{% block content %}
+    <p class="sub_title">
+        <span style="font-size: 1.3em;font-weight: bold;">{{ submenu.name }}</span> | {{ getMain.mainImg.title }}
+    </p>
+
+    <div id="sub-body" style="width:100%;text-align:left">
+        <div class="div_contents_body">
+            <p class="p_body_title">{{ board.title }}</p>
+            <p class="p_body_font">글자크기 : <button class="btn btn-xs btn-default" id="btn_font_up"><i class="xi-plus"></i></button><button class="btn btn-xs btn-default" id="btn_font_down"><i class="xi-minus"></i></button></p>
+            <div class="div_body_info dropdown">
+                <a id="reporter" role="button" data-toggle="dropdown" href="#">{{ board.user.first_name }}</a><br/>조회수:{{ board.hits }} | [{{ board.date_updated|date:"Y-m-d H:i:s" }}]
+                <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="reporter">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">다른 기사보기</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">이메일 보내기</a></li>
+                </ul>
+            </div>
+            <div class="p_body_con"><pre>{{ contents|safe }}</pre></div>
+            <hr/>
+            <div class="col-lg-12" align="right">
+                {% if user.profile.grade.level == 10 or board.user == user %}
+                    <button type="button" class="btn btn-default" id="btn_modify" onclick="location.href='/board/modify/{{ board.id }}';"><i class="xi-scissors"></i> 수정</button>
+                    <button type="button" class="btn btn-default" id="btn_delete"><i class="xi-wastebasket"></i> 삭제</button>
+                {% endif %}
+            </div>
+            <div id="div_comment_input">
+                <p id="p_comment_length">0 / 200 자</p>
+                <p id="p_comment_title">댓글쓰기</p>
+                {% if user.id %}
+                    <button class="btn btn-default" id="btn_comment_write">확인</button>
+                    <div class="div_textarea_comment_txt"><textarea class="form-control" id="textarea_comment_txt" maxlength="200" rows="3" placeholder="댓글을 입력하세요."></textarea></div>
+                {% else %}
+                    <button class="btn btn-default" id="btn_comment_write" onclick="$('#LoginModal').modal('show');">확인</button>
+                    <div class="div_textarea_comment_txt"><textarea class="form-control" id="textarea_comment_txt" maxlength="0" rows="3" placeholder="로그인 후 이용해주세요." onclick="$('#LoginModal').modal('show');"></textarea></div>
+                {% endif %}
+            </div>
+            <div class="div_comment_list">&nbsp;</div>
+        </div>
+    </div>
+    <script>
+        var fontSize = 14;
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
+
+        $(".div_contents_body .div_comment_list").load("/board/reply/{{ board.id }}");
+
+        $(".div_contents_body #btn_font_up").click(function(){
+            if(fontSize < 24) fontSize += 2;
+            setFontSize();
+        });
+        $(".div_contents_body #btn_font_down").click(function(){
+            if(fontSize > 12) fontSize -= 2;
+            setFontSize();
+        });
+
+        $("#div_comment_input #textarea_comment_txt").keyup(function(){
+            $("#div_comment_input #p_comment_length").text($(this).val().length+" / 200 자");
+        });
+
+        function setFontSize(){
+            $(".p_body_con pre").css({"font-size":fontSize+"px"})
+            $(".p_body_con pre *").css({"font-size":fontSize+"px"})
+        }
+
+        {% if user.profile.grade.level == 10 or board.user == user %}
+            $("#btn_delete").click(function(){
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    $(".div_contents_body").load("/board/delete/",{'csrfmiddlewaretoken':$("#wrap > input[name=csrfmiddlewaretoken]").val(),'board_id':'{{board.id}}'},function(){
+                        window.location.href = "/mobile/board/{{ submenu.id }}?n=" + new Date().getTime();
+                    });
+                }
+            });
+        {% endif %}
+
+        {% if user.id %}
+            $("#btn_comment_write").click(function(){
+                var board_id = "{{ board.id }}";
+                var con = $("#textarea_comment_txt").val();
+                $(".div_contents_body .div_comment_list").hide().load("/board/reply/post/",{'csrfmiddlewaretoken':$("#wrap > input[name=csrfmiddlewaretoken]").val(),'board_id':board_id,'con':con},function(){
+                    $("#textarea_comment_txt").val("");
+                }).fadeIn(500);
+            });
+
+            function replyDelete(boardreply_id){
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    $(".div_contents_body .div_comment_list").hide().load("/board/reply/delete/",{'csrfmiddlewaretoken':$("#wrap > input[name=csrfmiddlewaretoken]").val(),'boardreply_id':boardreply_id}).fadeIn(500);
+                }
+            }
+        {% else %}
+            $("#textarea_comment_txt").click(function(){
+                $('#LoginModal').modal('show');
+            });
+        {% endif %}
+    </script>
+{% endblock %}

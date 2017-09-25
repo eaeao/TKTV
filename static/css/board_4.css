@@ -1,15 +1,7 @@
-#container #aside {position:relative;float:left;width:250px;margin: 0;}
-#container #aside #div_aside_submenu {background-color:#fafafa;margin:10px}
-#container #aside #div_aside_submenu #p_submenu_title {font-size: 18px;font-weight: 600;line-height: 55px;border-bottom: 1px solid #eee;background-color: #2a84bf;color: #fff;padding-left: 20px;margin-bottom: 15px;}
-#container #aside #div_aside_submenu #p_submenu_title i {font-size: 18px;color: #ccc;}
-#container #aside #div_aside_submenu .li_submenu_list {color:#666;font-size: 14px;margin-left: 20px;margin-bottom: 15px;cursor: pointer}
-#container #aside #div_aside_submenu .li_submenu_list:hover {color:#000}
-#container #aside #div_aside_submenu .li_submenu_list i {font-size: 14px;color: #ccc;}
-
 #container #content{float:right;position:relative;width:870px;height:100%;margin:0;}
 #container #content .div_list_title { border-bottom: 2px solid #aaa;padding: 5px; }
-#container #content .div_list_title .span_title_sub {font-weight:600;font-size: 14px;color: #e67e22;}
-#container #content .div_list_element {padding: 10px;min-height: 208px;display: inline-block;}
+#container #content .div_list_title .span_title_sub {font-weight:600;font-size: 14px;color: #183173;}
+#container #content .div_list_element {padding: 10px;display: inline-block;}
 #container #content .div_list_click:hover {background-color: #f5f5f5;cursor:pointer}
 #container #content .div_list_element .div_element_img { width:100%;height:130px; border: 1px solid #eee; color: #fff; margin-bottom: 5px;}
 #container #content .div_list_element .div_element_img {background-repeat: no-repeat;background-position: center center;background-size: 100% auto}
@@ -18,7 +10,7 @@
 #container #content .div_list_element .div_element_img .p_img_tmp:hover {font-size:50px}
 #container #content .div_list_element .div_element_img .p_img_tmp i {font-size:inherit;line-height: 130px;}
 #container #content .div_list_element .p_element_date {color: #aaa; text-align: center;font-size: 12px;}
-#container #content .div_list_element .p_element_title { font-size: 12px;font-weight: 600; margin-bottom: 2px; text-align: center;}
+#container #content .div_list_element .p_element_title {font-size: 12px;font-weight: 600;margin-bottom: 2px;text-align: center;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 
 /* UI Object */
 .paginate_complex {padding:15px 0;line-height:normal;text-align:center}

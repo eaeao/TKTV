@@ -1,0 +1,93 @@
+{% extends "mobile/head.html" %}
+{% block content %}
+    {% if submenu.permission_write.level <= user.profile.grade.level %}
+        <p class="sub_title">
+            <span style="font-size: 1.3em;font-weight: bold;">{{ submenu.name }}</span> | {{ getMain.mainImg.title }}
+        </p>
+
+        <div id="sub-body" style="width:100%;text-align:left">
+            <div class="div_contents_body">
+                <form id="form_contents" class="form" method="post" enctype="multipart/form-data" action="/board/write/{{ submenu.id }}">
+                    {% csrf_token %}
+                    {% if user.is_superuser %}
+                        <div class="form-group">
+                            <label for="input_title">게시판</label>
+                            <select class="form-control" id="select_board" name="select_board">
+                                {% for board_list in boards_list %}<option value="{{ board_list.id }}" {% if submenu.id == board_list.id %}selected{% endif %}>{{ board_list.main_menu.name }} > {{ board_list.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="input_title">제목</label>
+                        {% if board %}
+                            <input type="text" class="form-control" id="input_title" name="input_title" placeholder="제목을 입력해주세요." value="{{ board.title }}">
+                        {% else %}
+                            <input type="text" class="form-control" id="input_title" name="input_title" placeholder="제목을 입력해주세요.">
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            {% if board %}
+                                <input type="checkbox" id="input_headline" name="input_headline" value="1" {% if board.is_headline %}checked{% endif %}> 헤드라인
+                            {% else %}
+                                <input type="checkbox" id="input_headline" name="input_headline" value="1"> 헤드라인
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_con">내용</label>
+                        <textarea type="text" class="form-control" id="input_con" name="input_con" rows="15" placeholder="내용을 입력해주세요."></textarea>
+                    </div>
+                    {% if board %}
+
+                    {% else %}
+                        <div class="col-lg-12" id="div_con_imgs"></div>
+                        <span id="span_con_addfiles" onclick="addFileInput()">...이미지 슬록 추가</span>
+                    {% endif %}
+                    <hr/>
+                    <div class="form-group">
+                        {% if board %}
+                            <button type="button" onclick="submit_board()" class="btn btn-default">수정 완료</button>
+                        {% else %}
+                            <button type="button" onclick="submit_board()" class="btn btn-default">작성 완료</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            var img_file_no = 0;
+            addFileInput();
+            $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
+
+            {% if board %}
+                $("#input_con").html("{{ contents|safe|escapejs }}");
+            {% endif %}
+
+            function addFileInput(){
+                var input_html = "<div class='form-group'><label for='exampleInputFile'>첨부 이미지 "+img_file_no+"</label> <input type='file' id='input_file"+img_file_no+"' name='input_file'> <p class='help-block'>추가하실 부분에 <b>&lcub;&lcub;"+img_file_no+"&rcub;&rcub;</b>을 입력해주세요.</p></div>";
+                $("#div_con_imgs").append(input_html);
+                img_file_no++;
+            }
+
+            $("#select_board").change(function(){
+                $("#form_contents").attr("action", '/board/write/'+$(this).val());
+            });
+        </script>
+        {% if submenu.id == 26 %}
+            <script src="http://itktv.cafe24.com:3000/socket.io/socket.io.js"></script>
+            <script>
+                var socket = io.connect("http://itktv.cafe24.com:3000");
+            </script>
+        {% endif %}
+        <script>
+            function submit_board(){
+                {% if submenu.id == 26 %}
+                    socket.emit('newBoard', {'sid':'tktv','no':'{{ recent_board.id|add:"1" }}','title':$("#input_title").val()});
+                {% endif %}
+                document.getElementById("form_contents").submit();
+            }
+        </script>
+    {% endif %}
+{% endblock %}

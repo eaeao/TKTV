@@ -1,0 +1,27 @@
+{% extends "head.html" %}
+{% block content %}
+    <div id="aside" class="row">
+        <div id="div_aside_submenu" class="div_feed">
+            <p id="p_submenu_title"><i class="xe-right-circle"></i> {{ submenu.main_menu.name }}</p>
+            <ul>
+                {% for sub in  submenu.main_menu.get_submenu %}
+                    <a href="{{ sub.get_link }}"><li class="li_submenu_list {% if submenu.name == sub.name %}bold{% endif %}"><i class="xe-angle-right"></i> {{ sub.name }}</li></a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div id="content" class="row">
+        <div class="col-lg-12 div_con_title">
+            <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
+        </div>
+        <div class="row div_con_body">
+            <center>
+                <img src="/static/img/form/form_result.png"><br/>
+                <button class="btn btn-lg" onclick="location.href='/form/{{ submenu.id }}';">완료</button>
+            </center>
+        </div>
+    </div>
+    <script>
+        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+    </script>
+{% endblock %}

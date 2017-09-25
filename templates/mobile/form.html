@@ -1,0 +1,69 @@
+{% extends "mobile/head.html" %}
+{% load mobile_extras %}
+{% block content %}
+    <div class="div_feed div_page_submenu">
+        <p class="li_page_submenu_title"><i class="xi-right-circle"></i> {{ submenu.main_menu.name }}</p>
+        <ul>
+            {% for sub in  submenu.main_menu.get_submenu %}
+                <li class="li_page_submenu_list {% if submenu.name == sub.name %}active{% endif %}" onclick="location.href='{{ sub|is_mobile_link }}';"><i class="xi-angle-right"></i> {{ sub.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <p class="sub_title">
+        <span id="sub_title_now" style="font-size: 1.3em;font-weight: bold;">{{ submenu.name }}</span> | {{ getMain.mainImg.title }}
+    </p>
+
+    <div id="sub-body" style="width:100%;text-align:left">
+        <div class="row div_con_body">
+            <form role="form" method="post" id="form_contents" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" id="form_id" name="form_id" value="{{ submenu.id }}">
+                <div class="privacy_info_box">
+                    <b>수집하는 개인정보 항목</b><br>
+                    회사는 회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.<br>
+                    - 수집항목 : 이름, 로그인ID, 비밀번호, 비밀번호 질문과 답변, 자택 전화번호, 자택 주소, 휴대전화번호, 이메일, 직업, 회사전화번호, 취미, 법정대리인정보, 신용카드 정보, 은행계좌 정보, 서비스 이용기록, 접속 로그, 쿠키, 접속 IP 정보, 결제기록, 필명, 자기소개<br>
+                    - 개인정보 수집방법 : 홈페이지(회원가입), 경품 행사 응모
+                </div>
+                <div class="col-lg-12" align="center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="privacy_agree" name="privacy_agree" value="Y"> 개인정보취급방침에 대한 내용을 모두 확인하였으며 이에 동의합니다.
+                    </label>
+                </div>
+                {% for form in forms %}
+                    {% if form.type == 'checkbox' %}
+                        <label class="checkbox-inline">
+                            <input type="{{ form.type }}" id="{{ form.name }}" name="{{ form.name }}" value="{{ form.title }}"> {{ form.title }}
+                        </label>
+                    {% elif form.type == 'textarea' %}
+                        <div class="form-group">
+                            <label for="{{ form.name }}">{{ form.title }}</label>
+                            <textarea class="form-control" id="{{ form.name }}" name="{{ form.name }}" rows="5" placeholder="{{ form.title }}" required></textarea>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <label for="{{ form.name }}">{{ form.title }}</label>
+                            <input type="{{ form.type }}" class="form-control" id="{{ form.name }}" name="{{ form.name }}" placeholder="{{ form.title }}" required>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            <div class="g-recaptcha" data-sitekey="6LeLLiMUAAAAAHaN7Sd9G7mGi42iVZaY7y9CAtgH" data-callback="enableBtn"></div>
+                <button type="button" onclick="submit_form()" class="btn btn-default" id="btn_submit" disabled>신청하기</button>
+                {% if user.is_superuser %}<button type="button" class="btn btn-default pull-right" onclick="location.href='/form/result/{{ submenu.id }}';"> 제출내역보기</button>{% endif %}
+            </form>
+        </div>
+    </div>
+    <script src="http://itktv.cafe24.com:3000/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect("http://itktv.cafe24.com:3000");
+
+        function submit_form(){
+            socket.emit('sendMsg', {'sid':'tktv','no':'1','name':"["+$("#sub_title_now").text()+"]"+$("#email").val()});
+            document.getElementById("form_contents").submit();
+        }
+
+        function enableBtn() {
+            $("#btn_submit").removeAttr("disabled");
+        }
+    </script>
+{% endblock %}

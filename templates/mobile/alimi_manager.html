@@ -1,0 +1,32 @@
+{% load mobile_extras %}<?xml version='1.0' encoding='utf-8'?>
+<VALUE>
+    <NODE>
+        <item title='No' name='번호' />
+        <item title='rdiv' name='구분' />
+        <item title='Name' name='이름' />
+        <item title='RPhone' name='연락처' />
+        <item title='email' name='이메일' />
+        <item title='rloc' name='지역' />
+        <item title='rjob' name='소속' />
+        <item title='rclass' name='클래스선택' />
+        <item title='RDate' name='예약일시' />
+        <item title='SubDate' name='등록일시' />
+    </NODE>
+    <LIST>
+        {% for formdata in formdatas %}{% with 7 as datalen %}
+            {% if forloop.counter0|mod:datalen == 0 %}<rsv {% endif %}
+        {% if formdata.form.name == "full_name" %}No="{{ formdata.id }}" {% endif %}
+        {% if forloop.counter0|mod:datalen == 0 %}rdiv="{{ formdata.form.submenu.name }}" {% endif %}
+        {% if formdata.form.name == "email" %}email="{{ formdata.value }}" {% endif %}
+        {% if formdata.form.name == "full_name" %}Name="{{ formdata.value }}" {% endif %}
+        {% if formdata.form.name == "cell_phone" %}RPhone="{{ formdata.value }}" {% endif %}
+        {% if formdata.form.name == "loc" %}rloc="{{ formdata.value }}" {% endif %}
+        {% if formdata.form.name == "job" %}rjob="{{ formdata.value }}" {% endif %}
+        {% if formdata.form.name == "class" %}rclass="{{ formdata.value }}" {% endif %}
+        {% if forloop.counter0|mod:datalen == 0 %}RDate="{{ formdata.date_created|date:"Y-m-d" }}" {% endif %}
+        {% if forloop.counter0|mod:datalen == 0 %}SubDate="{{ formdata.date_created|date:"Y-m-d H:i:s" }}" {% endif %}
+        {% if forloop.counter0|mod:datalen == 0 %}RSubDate="{{ formdata.date_created|time2unix }}" {% endif %}
+        {% if forloop.counter0|mod:datalen == datalen|add:"-1" %} />{% endif %}
+        {% endwith %}{% endfor %}
+    </LIST>
+</VALUE>

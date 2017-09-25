@@ -37,20 +37,26 @@
                     {% elif form.type == 'textarea' %}
                         <div class="form-group">
                             <label for="{{ form.name }}">{{ form.title }}</label>
-                            <textarea class="form-control" id="{{ form.name }}" name="{{ form.name }}" rows="5" placeholder="{{ form.title }}"></textarea>
+                            <textarea class="form-control" id="{{ form.name }}" name="{{ form.name }}" rows="5" placeholder="{{ form.title }}" required></textarea>
                         </div>
                     {% else %}
                         <div class="form-group">
                             <label for="{{ form.name }}">{{ form.title }}</label>
-                            <input type="{{ form.type }}" class="form-control" id="{{ form.name }}" name="{{ form.name }}" placeholder="{{ form.title }}">
+                            <input type="{{ form.type }}" class="form-control" id="{{ form.name }}" name="{{ form.name }}" placeholder="{{ form.title }}" required>
                         </div>
                     {% endif %}
                 {% endfor %}
-                <button type="submit" class="btn btn-default">신청하기</button>
+                <div class="g-recaptcha" data-sitekey="6LeLLiMUAAAAAHaN7Sd9G7mGi42iVZaY7y9CAtgH" data-callback="enableBtn"></div>
+                <button type="submit" class="btn btn-default" id="btn_submit" disabled>신청하기</button>
+                {% if user.is_superuser %}<button type="button" class="btn btn-default pull-right" onclick="location.href='/form/result/{{ submenu.id }}';"> 제출내역보기</button>{% endif %}
             </form>
         </div>
     </div>
     <script>
-        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
+
+        function enableBtn() {
+            $("#btn_submit").removeAttr("disabled");
+        }
     </script>
 {% endblock %}

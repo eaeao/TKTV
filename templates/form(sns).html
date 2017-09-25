@@ -1,0 +1,109 @@
+<style>
+    .privacy_info_box {width:100%; height:50px; padding:5px; margin:0 0 3px 0; overflow:auto; color:#404040; font-size:11px; font-family:돋움; text-decoration:none; letter-spacing:-0.5px; text-align:justify; border:1px solid #e5e5e5; line-height:160%;}
+    .privacy_info_box {scrollbar-base-color:#d9d9d9; scrollbar-3dlight-color:#d9d9d9; scrollbar-darkshadow-color:#d9d9d9; scrollbar-face-color:#d9d9d9; scrollbar-highlight-color:#d9d9d9; scrollbar-shadow-color:#d9d9d9; scrollbar-track-color:#f2f2f2;}1
+</style>
+
+<div class='row'>
+    <div class='col-lg-12'>
+
+        <form role="form" id="form_contents" method="post" enctype="multipart/form-data" action="/form/25">
+            <input type="hidden" id="form_csrfmiddlewaretoken" name="csrfmiddlewaretoken" value="">
+            <input type="hidden" id="form_id" name="form_id" value="25">
+            <div class="privacy_info_box">
+                <b>수집하는 개인정보 항목</b><br/>
+                회사는 회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.<br/>
+                - 수집항목 : 이름, 로그인ID, 비밀번호, 비밀번호 질문과 답변, 자택 전화번호, 자택 주소, 휴대전화번호, 이메일, 직업, 회사전화번호, 취미, 법정대리인정보, 신용카드 정보, 은행계좌 정보, 서비스 이용기록, 접속 로그, 쿠키, 접속 IP 정보, 결제기록, 필명, 자기소개<br/>
+                - 개인정보 수집방법 : 홈페이지(회원가입), 경품 행사 응모
+            </div>
+
+            <div class="col-lg-12" align="center">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="privacy_agree" name="privacy_agree" value="Y" required/> 개인정보취급방침에 대한 내용을 모두 확인하였으며 이에 동의합니다.
+                </label>
+            </div>
+
+
+            <div class="form-group">
+                <label for="full_name">이름</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="이름" required/>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="이메일" required/>
+            </div>
+
+
+            <div class="form-group">
+                <label for="loc">지역</label>
+                <input type="text" class="form-control" id="loc" name="loc" placeholder="지역" required/>
+            </div>
+
+
+            <div class="form-group">
+                <label for="cell_phone">휴대전화</label>
+                <input type="tel" class="form-control" id="cell_phone" name="cell_phone" placeholder="휴대전화" required/>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="job">소속(업종.현재하시는일)</label>
+                <input type="text" class="form-control" id="job" name="job" placeholder="소속(업종.현재하시는일)" required/>
+            </div>
+
+
+            <div class="form-group">
+                <label for="class">클래스선택</label>
+                <select class="form-control" id="class" name="class">
+                    <option value="60기 SNS준전문가과정" selected>60기 SNS준전문가과정</option>
+                    <option value="블로그 전문가과정" >블로그 전문가과정</option>
+                    <option value="개인(그룹)교육신청">개인(그룹)교육신청</option>
+                    <option value="facebook 강의">facebook 강의</option>
+                    <option value="인스타그램 강의">인스타그램 강의</option>
+                    <option value="스마트폰 활용교육">스마트폰 활용교육</option>
+                    <option value="NCS과정 강의">NCS과정 강의</option>
+                    <option value="CS.자기계발">CS.자기계발</option>
+                    <option value="스피치.프리젠테이션">스피치.프리젠테이션</option>
+                    <option value="효지도사.인성교육지도사">효지도사.인성교육지도사</option>
+                    <option value="기타 민간자격교육">기타 민간자격교육</option>
+                    <option value="민간자격증발급 신청">민간자격증발급 신청</option>
+                    <option value="강사양성과정 문의">강사양성과정 문의</option>
+                    <option value="홈페이지.쇼핑몰제작">홈페이지.쇼핑몰제작</option>
+                    <option value="모바일앱개발.제작">모바일앱개발.제작</option>
+                    <option value="포토샵.그래픽 강의">포토샵.그래픽 강의</option>
+                    <option value="SNS 대행,관리문의">SNS 대행,관리문의</option>
+                    <option value="무료강좌신청">무료강좌신청</option>
+                    <option value="오토네일 창업문의">오토네일 창업문의</option>
+                    <option value="오토네일 구입문의">오토네일 구입문의</option>
+                    <option value="기타 문의">기타 문의</option>
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="contents">기타문의내용</label>
+                <textarea class="form-control" id="contents" name="contents" rows="5" placeholder="기타문의내용 | 신청인과 입금자명이 다를 경우 반드시 메모하세요"></textarea>
+            </div>
+
+            <div class="g-recaptcha" data-sitekey="6LeLLiMUAAAAAHaN7Sd9G7mGi42iVZaY7y9CAtgH" data-callback="enableBtn"></div>
+            <button type="submit" class="btn btn-default" id="btn_submit" disabled>신청하기</button>
+            <button type="button" class="btn btn-default pull-right" onclick="location.href='/form/result/25';"> 제출내역보기</button>
+        </form>
+    </div>
+</div>
+<script src="http://itktv.cafe24.com:3000/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect("http://itktv.cafe24.com:3000");
+
+    $("#form_csrfmiddlewaretoken").val($("#wrap > input[name=csrfmiddlewaretoken]").val());
+    $("#btn_submit").click(function(){
+        socket.emit('sendMsg', {'sid':'tktv','no':'1','name':$("#full_name").val()});
+    });
+    function enableBtn() {
+        $("#btn_submit").removeAttr("disabled");
+    }
+</script>

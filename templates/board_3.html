@@ -11,7 +11,7 @@
         </div>
     </div>
     <div id="content" class="row">
-        {% if submenu.permission_read.level <= user.get_profile.grade.level or submenu.permission_read.level == 1 %}
+        {% if submenu.permission_read.level <= user.profile.grade.level or submenu.permission_read.level == 1 %}
             <div class="col-lg-12 div_list_title">
                 <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
             </div>
@@ -21,7 +21,7 @@
                         {% if ele.get_src.is_visible %}<div class="div_element_img" style="background-image:url({{ ele.get_src.src.url}})"></div>{% endif %}
                         <p class="p_element_date">[{{ ele.date_updated|date:"Y-m-d H:i:s" }}]</p>
                         <p class="p_element_title">{{ ele.title|safe }}</p>
-                        <p class="p_element_con">{{ ele.get_con|safe }}</p>
+                        <p class="p_element_con">{{ ele.get_con|safe|slice:":250" }}</p>
                     </div>
                 {% endfor %}
                 {% include "board_bottom.html" %}
@@ -35,7 +35,7 @@
         {% endif %}
     </div>
     <script>
-        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
     </script>
 
 {% endblock %}

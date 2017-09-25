@@ -1,11 +1,18 @@
-#container #aside {position:relative;float:left;width:250px;margin: 0;}
-#container #aside #div_aside_submenu {background-color:#fafafa;margin:10px}
-#container #aside #div_aside_submenu #p_submenu_title {font-size: 18px;font-weight: 600;line-height: 55px;border-bottom: 1px solid #eee;background-color: #2a84bf;color: #fff;padding-left: 20px;margin-bottom: 15px;}
-#container #aside #div_aside_submenu #p_submenu_title i {font-size: 18px;color: #ccc;}
-#container #aside #div_aside_submenu .li_submenu_list {color:#666;font-size: 14px;margin-left: 20px;margin-bottom: 15px;cursor: pointer}
-#container #aside #div_aside_submenu .li_submenu_list:hover {color:#000}
-#container #aside #div_aside_submenu .li_submenu_list i {font-size: 14px;color: #ccc;}
+#div_page_editor {position: absolute;top: 0;right: 0;bottom: 0;left: 0;border:1px solid #ccc}
+#div_page_editor * {font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;  direction: ltr;}
 
 #container #content{float:right;position:relative;width:870px;height:100%;margin:0;}
 #container #content .div_con_title { border-bottom: 2px solid #aaa;padding: 5px; }
-#container #content .div_con_title .span_title_sub {font-weight:600;font-size: 14px;color: #e67e22;}
+#container #content .div_con_title .span_title_sub {font-weight:600;font-size: 14px;color: #183173;}
+
+.div_contents {padding: 20px 0px;}
+.div_contents h1, .cke_editable h1,.div_contents h2, .cke_editable h2, .div_contents p, .cke_editable p {font-family:'Apple SD Gothic Neo','Noto Sans CJK KR','KoPubDotum Medium',"NanumBarunGothic",'NanumGothic',"Tahoma","Open Sans",arial,'Malgun Gothic',sans-serif;text-rendering: optimizeLegibility !important;-webkit-font-smoothing: antialiased !important;}
+.div_contents h1, .cke_editable h1 {font-size: 18px;font-weight:700;border:0;padding:0px;margin-bottom: 20px;margin-top: 40px;color: #b51e3a;padding-left: 8px;border-left: 2px solid #b51e3a;}
+.div_contents h2, .cke_editable h2 {font-size: 16px;font-weight:700;border:0;padding:0px;margin-bottom: 10px;margin-top: 30px;color: #333;}
+.div_contents p, .cke_editable p {font-size: 15px;line-height: 1.6;text-align: justify;margin-bottom: 20px;}
+.div_contents ul, .cke_editable ul {list-style:circle;font-size: 15px;padding:initial;margin-left: 20px;}
+.div_contents ol, .cke_editable ol {list-style-type: decimal;padding:initial;margin-left: 20px}
+.div_contents li, .cke_editable li {font-size: 15px;line-height: 1.6;text-align: justify;margin-bottom: 10px;}
+.div_contents .table_page, .cke_editable .table_page {width:100%;margin:10px 0;border:1px solid #999;text-align:center}
+.div_contents .table_page td, .cke_editable .table_page td {border:1px solid rgb(245, 208, 182);margin:0;padding:0;text-indent:0;height:45px;font-size:small}
+.div_contents .table_page th, .cke_editable .table_page th {background-color:RGB(237,125,49);color:#FFF;font-weight:700;border:1px solid rgb(245, 208, 182);margin:0;padding:0;text-indent:0;height:45px;font-size:small;text-align:center}

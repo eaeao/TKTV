@@ -11,7 +11,7 @@
         </div>
     </div>
     <div id="content" class="row">
-        {% if submenu.permission_read.level <= user.get_profile.grade.level or submenu.permission_read.level == 1 %}
+        {% if submenu.permission_read.level <= user.profile.grade.level or submenu.permission_read.level == 1 %}
             <div class="col-lg-12 div_list_title">
                 <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
             </div>
@@ -40,7 +40,7 @@
         {% endif %}
     </div>
     <script>
-        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
         $("#container #content .div_list_element").last().css({"float":"none"});
     </script>
 {% endblock %}

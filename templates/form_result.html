@@ -1,4 +1,5 @@
 {% extends "head.html" %}
+{% load main_extras %}
 {% block content %}
     <div id="aside" class="row">
         <div id="div_aside_submenu" class="div_feed">
@@ -12,21 +13,33 @@
     </div>
     <div id="content" class="row">
         <div class="col-lg-12 div_con_title">
-            <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
+            <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }} 제출내역보기</span>
         </div>
         <div class="row div_con_body">
-            <center>
-                {% if submenu.id == 27 %}
-                    <img src="/static/img/form/form_result_1.jpg"><br/>
-                    <button class="btn btn-lg" onclick="location.href='/form/27';">신청완료</button>
-                {% elif submenu.id == 28 %}
-                    <img src="/static/img/form/form_result_2.jpg"><br/>
-                    <button class="btn btn-lg" onclick="location.href='/form/28';">제보완료</button>
-                {% endif %}
-            </center>
+            {% if submenu.permission_read.level != 10 %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        {% for form in forms %}<th>{{ form.title }}</th>{% endfor %}
+                    <th>등록일자</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% with forms|length as formlen %}
+                        {% for formdata in formdatas %}
+                            {% if forloop.counter0|mod:formlen == 0 %}<tr>{% endif %}
+                        <td>{{ formdata.value }}</td>
+                        {% if forloop.counter0|mod:formlen == formlen|add:"-1" %}<td>{{ formdata.date_created }}</td></tr>{% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                    </tbody>
+                </table>
+            {% else %}
+                권한이 없습니다.
+            {% endif %}
         </div>
     </div>
     <script>
-        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
     </script>
 {% endblock %}

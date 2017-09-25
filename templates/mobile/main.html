@@ -1,0 +1,61 @@
+{% extends "mobile/head.html" %}
+{% block content %}
+<div id="center-img">
+    <img class="main_center" src="/static/img/mobile/main_center_1.png">
+    <img class="main_center" src="/static/img/mobile/main_center_2.png">
+    <img class="main_center" src="/static/img/mobile/main_center_3.png">
+    <img src="/static/img/mobile/blank.png">
+</div>
+<div style="position:relative;width:100%;">
+    <ul class="ul_main_submenu">
+        <li onclick="location.href='/mobile/page/25';"><i class="xi-education"></i><p class="title">교육신청</p></li>
+        <li onclick="location.href='/mobile/form/28';"><i class="xi-postcard"></i><p class="title">기사제보</p></li>
+        <li onclick="location.href='/mobile/form/27';"><i class="xi-user-info"></i><p class="title">시민기자신청</p></li>
+        <li onclick="location.href='/mobile/board/29';"><i class="xi-check-homeout"></i><p class="title">기자룸</p></li>
+    </ul>
+    <ul class="ul_main_submenu">
+        <li onclick="location.href='/mobile/board/26';"><i class="xi-bell-ring"></i><p class="title">공지/이벤트</p></li>
+        <li onclick="location.href='http://plus.kakao.com/home/@tktv#newwindow';"><i class="xi-kakaotalk"></i><p class="title">카카오톡상담</p></li>
+        <li onclick="$('#modalSNS').modal('show');"><i class="xi-thumbs-up"></i><p class="title">친구에게 추천</p></li>
+        <li onclick="location.href='/mobile/page/5';"><i class="xi-map-marker"></i><p class="title">오시는길</p></li>
+    </ul>
+    <ul class="ul_main_submenu">
+        <li onclick="location.href='https://www.instagram.com/tktvib#newwindow';"><img class="centermenu" src="/static/img/mobile/centermenu_3.png"><p class="title">TKTV</p></li>
+        <li onclick="location.href='https://www.instagram.com/nailmein#newwindow';"><img class="centermenu" src="/static/img/mobile/centermenu_3.png"><p class="title">네일미인</p></li>
+        <li onclick="location.href='http://blog.naver.com/jmr102900#newwindow';"><img class="centermenu" src="/static/img/mobile/centermenu_1.png"><p class="title">공식블로그</p></li>
+        <li onclick="location.href='https://www.facebook.com/nailmein#newwindow';"><img class="centermenu" src="/static/img/mobile/centermenu_2.png"><p class="title">페이스북</p></li>
+    </ul>
+    <img id="mainText01" width="100%" style="margin-top:20px" src="/static/img/mobile/center_01.png">
+    <img id="mainText02" width="100%" onclick="location.href='tel:1544-7548'" src="/static/img/mobile/center_02.png" style="cursor:pointer">
+    <img id="mainText03" width="100%" style="margin-bottom:20px" onclick="location.href='tel:010-2881-8486'" src="/static/img/mobile/center_03.png" style="cursor:pointer">
+</div>
+<script>
+    var max_num = $("#contents #center-img img.main_center").length;
+    var img_num = max_num;
+    $("#contents #center-img img.main_center").css({"z-index":50});
+    $("#contents #center-img img.main_center:nth-child("+img_num+")").css({"z-index":100});
+    setInterval(function(){
+        $("#contents #center-img img.main_center:nth-child("+img_num+")").fadeOut(1000,function(){
+            img_num--;
+            switch(img_num){
+                case 0:
+                    img_num=max_num;
+                case 1:
+                    $("#contents #center-img img").show();
+            }
+            $("#contents #center-img img.main_center").css({"z-index":50});
+            $("#contents #center-img img.main_center:nth-child("+img_num+")").css({"z-index":100});
+        });
+    }, 5000);
+</script>
+<script>
+    ;(function(a){a.fn.rwdImageMaps=function(){var c=this;var b=function(){c.each(function(){if(typeof(a(this).attr("usemap"))=="undefined"){return}var e=this,d=a(e);a("<img />").load(function(){var g="width",m="height",n=d.attr(g),j=d.attr(m);if(!n||!j){var o=new Image();o.src=d.attr("src");if(!n){n=o.width}if(!j){j=o.height}}var f=d.width()/100,k=d.height()/100,i=d.attr("usemap").replace("#",""),l="coords";a('map[name="'+i+'"]').find("area").each(function(){var r=a(this);if(!r.data(l)){r.data(l,r.attr(l))}var q=r.data(l).split(","),p=new Array(q.length);for(var h=0;h<p.length;++h){if(h%2===0){p[h]=parseInt(((q[h]/n)*100)*f)}else{p[h]=parseInt(((q[h]/j)*100)*k)}}r.attr(l,p.toString())})}).attr("src",d.attr("src"))})};a(window).resize(b).trigger("resize");return this}})(jQuery);
+
+    $('img[usemap]').rwdImageMaps();
+</script>
+<script>
+    $("#recommend").click(function(){
+        $("#modalSNS").modal("show");
+    });
+</script>
+{% endblock %}

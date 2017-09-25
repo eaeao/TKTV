@@ -1,0 +1,27 @@
+{% extends "mobile/head.html" %}
+{% load mobile_extras %}
+{% block content %}
+    <div class="div_feed div_page_submenu">
+        <p class="li_page_submenu_title"><i class="xi-right-circle"></i> {{ submenu.main_menu.name }}</p>
+        <ul>
+            {% for sub in  submenu.main_menu.get_submenu %}
+                <li class="li_page_submenu_list {% if submenu.name == sub.name %}active{% endif %}" onclick="location.href='{{ sub|is_mobile_link }}';"><i class="xi-angle-right"></i> {{ sub.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <p class="sub_title">
+        <span style="font-size: 1.3em;font-weight: bold;">{{ submenu.name }}</span> | {{ getMain.mainImg.title }}
+    </p>
+
+
+    <div id="sub-body" style="width:100%;text-align:left">
+        <div class="row div_con_body">
+            <center>
+                <img src="/static/img/form/form_result.png"><br/>
+                <button class="btn btn-lg" onclick="location.href='/form/{{ submenu.id }}';">완료</button>
+            </center>
+        </div>
+    </div>
+
+{% endblock %}

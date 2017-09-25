@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-import urllib
-import urllib2
+import urllib.parse
+
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
 from django.db import models
@@ -10,18 +9,19 @@ class UserGrade(models.Model):
     grade = models.TextField()
     level = models.IntegerField(unique=True)
 
-    def __unicode__(self):
-        return u'[LV.%d] %s' %(self.level,self.grade)
+    def __str__(self):
+        return '[LV.%d] %s' %(self.level,self.grade)
+
 
 class UserProfile(models.Model):
-    #required by the auth model
-    user = models.ForeignKey(User, unique=True)
-    src = models.FileField(upload_to="upload/",default="/static/img/main/default_user.png")
+    user = models.OneToOneField(User, related_name="profile")
+    src = models.FileField(upload_to="upload/",default="/default_user.png")
     grade = models.ForeignKey(UserGrade, default=1)
     phone_number = models.TextField()
 
-    def __unicode__(self):
-        return u'[%d] %s' %(self.id,self.user.first_name)
+    def __str__(self):
+        return '[%d] %s' %(self.id,self.user.first_name)
+
 
 class Main(models.Model):
     title = models.TextField()
@@ -33,58 +33,75 @@ class Main(models.Model):
         side_banner_left = get_or_none(SideBannerLeft,main=self)
         side_banner_right = get_or_none(SideBannerRight,main=self)
         right_banner = RightBanner.objects.filter(main=self)
-        return {'top_logo':top_logo,'top_banner_left':top_banner_left,'top_banner_right':top_banner_right,'side_banner_left':side_banner_left,'side_banner_right':side_banner_right,'right_banner':right_banner}
+        bottom_banner = BottomBanner.objects.filter(main=self)
+        return {'top_logo':top_logo,'top_banner_left':top_banner_left,'top_banner_right':top_banner_right,'side_banner_left':side_banner_left,'side_banner_right':side_banner_right,'right_banner':right_banner,'bottom_banner':bottom_banner}
 
-    def __unicode__(self):
-        return u'[%d]%s' %(self.id,self.title)
+    def __str__(self):
+        return '[%d]%s' %(self.id,self.title)
+
 
 class TopLogo(models.Model):
     main = models.ForeignKey(Main, unique=True)
     src = models.FileField(upload_to="upload/")
     url = models.TextField(default='/',null=True,blank=True)
 
-    def __unicode__(self):
-        return u'%s' %(self.src)
+    def __str__(self):
+        return '%s' %(self.src)
+
 
 class TopBannerLeft(models.Model):
     main = models.ForeignKey(Main, unique=True)
     src = models.FileField(upload_to="upload/")
     url = models.TextField(default='/',null=True,blank=True)
 
-    def __unicode__(self):
-        return u'%s' %(self.src)
+    def __str__(self):
+        return '%s' %(self.src)
+
 
 class TopBannerRight(models.Model):
     main = models.ForeignKey(Main, unique=True)
     src = models.FileField(upload_to="upload/")
     url = models.TextField(default='/',null=True,blank=True)
 
-    def __unicode__(self):
-        return u'%s' %(self.src)
+    def __str__(self):
+        return '%s' %(self.src)
+
 
 class SideBannerLeft(models.Model):
     main = models.ForeignKey(Main, unique=True)
     src = models.FileField(upload_to="upload/")
     url = models.TextField(default='/',null=True,blank=True)
 
-    def __unicode__(self):
-        return u'%s' %(self.src)
+    def __str__(self):
+        return '%s' %(self.src)
+
 
 class SideBannerRight(models.Model):
     main = models.ForeignKey(Main, unique=True)
     src = models.FileField(upload_to="upload/")
     url = models.TextField(default='/',null=True,blank=True)
 
-    def __unicode__(self):
-        return u'%s' %(self.src)
+    def __str__(self):
+        return '%s' %(self.src)
+
 
 class RightBanner(models.Model):
     main = models.ForeignKey(Main)
     src = models.FileField(upload_to="upload/")
     url = models.TextField(default='/',null=True,blank=True)
 
-    def __unicode__(self):
-        return u'%s' %(self.src)
+    def __str__(self):
+        return '%s' %(self.src)
+
+
+class BottomBanner(models.Model):
+    main = models.ForeignKey(Main)
+    src = models.FileField(upload_to="upload/")
+    url = models.TextField(default='/',null=True,blank=True)
+
+    def __str__(self):
+        return '%s' %(self.src)
+
 
 class MainMenu(models.Model):
     name = models.TextField()
@@ -103,8 +120,8 @@ class MainMenu(models.Model):
     def get_submenu(self):
         return SubMenu.objects.filter(main_menu=self).order_by("order")
 
-    def __unicode__(self):
-        return u'%s(%d)' %(self.name,self.order)
+    def __str__(self):
+        return '%s(%d)' %(self.name,self.order)
 
 MODE_IN_SUBMENU_CHOICES = (
     (0, '외부링크'),
@@ -114,6 +131,7 @@ MODE_IN_SUBMENU_CHOICES = (
     (4, '갤러리'),
     (5, '입력양식'),
 )
+
 
 class SubMenu(models.Model):
     main_menu = models.ForeignKey(MainMenu)
@@ -138,8 +156,9 @@ class SubMenu(models.Model):
         elif self.mode == 5 :
             return "/form/%d"%self.id
 
-    def __unicode__(self):
-        return u'%s → %s(%d)' %(self.main_menu,self.name,self.order)
+    def __str__(self):
+        return '%s → %s(%d)' %(self.main_menu,self.name,self.order)
+
 
 def get_or_none(model,order=None, **kwargs):
     try:
@@ -155,17 +174,21 @@ def get_or_none(model,order=None, **kwargs):
     except Exception as e:
         return None
 
+
+def encode_con(con):
+    #return urllib.unquote_plus(urllib.unquote(con.encode('ascii', 'xmlcharrefreplace')))
+    return urllib.parse.unquote_plus(urllib.parse.unquote(con))
+
+
 def getMain():
     mainImg = Main.objects.all().order_by("-id")
     if mainImg :
         mainImg = mainImg[0]
 
-    main_menu = MainMenu.objects.all()
+    main_menu = MainMenu.objects.all().order_by('order')
 
     return {'mainImg':mainImg,'main_menu':main_menu}
 
-def encode_con(con):
-    return urllib.unquote_plus(urllib2.unquote(con.encode('ascii', 'xmlcharrefreplace')))
 
 def upload(req):
     if req.method == 'POST':
@@ -173,7 +196,7 @@ def upload(req):
             file = req.FILES['file']
             filename = file._name
 
-            fp = open('%s/%s' % ("/root/www/tktv/media/upload", filename) , 'wb')
+            fp = open('%s/%s' % ("/root/www/media/upload", filename) , 'wb')
             for chunk in file.chunks():
                 fp.write(chunk)
             fp.close()

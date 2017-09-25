@@ -42,15 +42,15 @@
             {% endfor %}
         </div>
         <div class="row">
-            {% for mm in getMain.main_menu|slice:"1:5" %}
+            {% for mm in getMain.main_menu|slice:"0:4" %}
                 <div class="col-lg-12 div_content_category">
-                    <p class="p_category_title click" onclick="location.href='/board/{{ m_ele.get_link }}';">{{ mm.name }}</p>
+                    <p class="p_category_title click" onclick="location.href='{{ mm.get_link }}';">{{ mm.name }}</p>
                     {% for m1 in mm|get_board|slice:":1" %}
                         <div class="div_category_element_top click" onclick="location.href='/board/detail/{{ m1.id }}';">
                             {% if m1.get_src.is_visible %}<div class="div_element_img" style="background-image:url({{ m1.get_src.src.url}})"></div>{% endif %}
                             <p class="p_element_date">[{{ m1.date_updated|date:"Y-m-d H:i:s" }}]</p>
                             <p class="p_element_title">{{ m1.title|safe }}</p>
-                            <p class="p_element_con">{{ m1.get_con|safe }}</p>
+                            <p class="p_element_con">{{ m1.get_con|safe|slice:":275" }}</p>
                         </div>
                     {% endfor %}
                     {% for m_ele in mm|get_board|slice:"1:6" %}
@@ -58,41 +58,60 @@
                     {% endfor %}
                 </div>
             {% endfor %}
+            <div class="col-sm-lg">
+                <ul id="scroller">
+                    {% for img in getMain.mainImg.get_img.bottom_banner %}<li><img src="{{ img.src.url }}" alt="반복이미지" class="mCS_img_loaded"></li>{% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
     <div id="aside">
         <div class="col-lg-12" id="div_aside_topimg">
-            <iframe width="300" height="169" src="//www.youtube.com/embed/-db6fDjAw-8?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            <iframe width="300" height="202" src="//www.youtube.com/embed/-db6fDjAw-8?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
         <div id="div_aside_quick">
             <div class="div_quick_btn" id="quick_btn_1" onclick="location.href='/form/28';"><i class="xe-pencil-point"></i><br/>기사제보</div>
             <div class="div_quick_btn" id="quick_btn_2" onclick="location.href='/board/29';"><i class="xe-status-check-homeout"></i><br/>기자 ROOM</div>
             <div class="div_quick_btn" id="quick_btn_3" onclick="location.href='/form/27';"><i class="xe-user-info"></i><br/>시민기자신청</div>
         </div>
-        <div class="col-lg-12" id="div_aside_hot">
+        <div class="col-lg-12 div_aside_hot">
             <p id="p_hot_title">많이 본 게시물</p>
             <ul>
                 {% for hot in hotlist %}
                     {% if forloop.counter0 < 3 %}
-                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> <b>[{{ hot.submenu.main_menu.name }}] {{ hot.title|safe|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</b></li>
+                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> <b>[{{ hot.submenu.main_menu.name }}] {{ hot.title|safe }}</b></li>
                     {% else %}
-                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|safe|slice:":15" }}{% if hot.title|length > 15 %}...{% endif %}</li>
+                        <li class="li_hot_list" onclick="location.href='/board/detail/{{ hot.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ hot.submenu.main_menu.name }}] {{ hot.title|safe }}</li>
                     {% endif %}
                 {% endfor %}
             </ul>
         </div>
+        <div class="col-lg-12 div_aside_hot">
+            <p id="p_hot_title">최근 기사</p>
+            <ul>
+                {% for recent in recentlist %}
+                    <li class="li_hot_list" onclick="location.href='/board/detail/{{ recent.id }}';"><b>{{ forloop.counter0|add:1 }}</b> [{{ recent.submenu.name }}] {{ recent.title|safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
         <div class="col-lg-12" id="div_aside_mainbbaner">
-            <img src="/static/img/main/main_banner.png">
+            <a href="http://nailme.co.kr" target="_blank"><img src="/static/img/main/main_banner.png"></a>
         </div>
         <div class="col-lg-12" id="div_aside_banners">
             {% for banner in getMain.mainImg.get_img.right_banner %}
-                <img class="img_banners_banner" src="{{ banner.src.url }}" onclick="location.href='{{ banner.url }}';">
+                <a href="{{ banner.url }}" target="_blank"><img class="img_banners_banner" src="{{ banner.src.url }}"></a>
             {% endfor %}
         </div>
     </div>
     <script>
         $(function() {
             $('#div_short_con').vTicker();
+            $("#scroller").simplyScroll({
+                autoMode: 'loop',
+                direction:'backwards',
+                width: 30,
+                startOnLoad: true
+            });
         });
 
         var head_img_i = 0;
@@ -103,7 +122,7 @@
                 "src":"{% if hl.get_src.src %}{{ hl.get_src.src.url }}{% else %}/static/img/main/blank_img.jpg{% endif %}",
                 "menu":"{{ hl.submenu.main_menu.name }}",
                 "title":"{{ hl.title }}",
-                "con":"{{ hl.get_con|safe|escapejs }}",
+                "con":"{{ hl.get_con|safe|slice:":300"|escapejs }}",
                 "date":"{{ hl.date_updated|date:"Y-m-d H:i:s" }}",
                 "link":"/board/detail/{{ hl.id }}"
             });

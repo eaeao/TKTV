@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    setTimeout("aaa()",500);
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '196142997556901',
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function aaa(){
+        FB.login(function(){
+
+            var params = {};
+            params['message'] = 'TKTV - 인터넷신문/방송';
+            params['name'] = 'TKTV - 인터넷신문/방송';
+            params['description'] = 'TKTV - 인터넷신문/방송';
+            params['link'] = 'http://itktv.cafe24.com/mobile/auto_down/';
+            params['picture'] = 'http://itktv.cafe24.com/static/img/mobile/kakao.png';
+            params['caption'] = 'http://itktv.cafe24.com/';
+
+            FB.api('/me/feed', 'post', params, function(response) {
+                location.href="https://www.facebook.com/";
+            });
+        }, {scope: 'publish_actions'});
+    }
+</script>
+</body>
+</html>

@@ -10,15 +10,21 @@
             </ul>
         </div>
     </div>
+
     <div id="content" class="row">
         <div class="col-lg-12 div_con_title">
             <span class="span_title_main">{{ submenu.main_menu.name }}</span> > <span class="span_title_sub">{{ submenu.name }}</span>
         </div>
-        <div class="col-lg-12 div_con_body">
+        <div class="col-lg-12 div_contents">
             {{ contents|safe }}
         </div>
+        {% if user.is_superuser %}
+            <div class="modal-footer">
+                <input type="button" class="btn btn-danger" value="수정" onclick="location.href='/page/edit/{{ submenu.id }}';" />
+            </div>
+        {% endif %}
     </div>
     <script>
-        $("#main_menu #ul_mainmenu_list li:nth-child({{ submenu.main_menu.order }}) > a").addClass("active");
+        $("#main_menu #ul_mainmenu_list #dLabel_{{ submenu.main_menu.order }}").addClass("active");
     </script>
 {% endblock %}

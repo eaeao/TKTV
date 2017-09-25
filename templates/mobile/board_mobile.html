@@ -1,0 +1,56 @@
+{% extends "mobile/head.html" %}
+{% load mobile_extras %}
+{% block content %}
+    <div class="div_feed div_page_submenu">
+        <p class="li_page_submenu_title"><i class="xi-right-circle"></i> {{ submenu.main_menu.name }}</p>
+        <ul>
+            {% for sub in  submenu.main_menu.get_submenu %}
+                <li class="li_page_submenu_list {% if submenu.name == sub.name %}active{% endif %}" onclick="location.href='{{ sub|is_mobile_link }}';"><i class="xi-angle-right"></i> {{ sub.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <p class="sub_title">
+        <span style="font-size: 1.3em;font-weight: bold;">{{ submenu.name }}</span> | {{ getMain.mainImg.title }}
+    </p>
+
+    <div id="sub-body" style="width:100%;text-align:left">
+        {% if submenu.permission_read.level <= user.profile.grade.level or submenu.permission_read.level == 1 %}
+            <div class='board_title'>
+                <p id='no'>번호</p>
+                <p id='title'>제목</p>
+                <p id='count'>조회수</p>
+            </div>
+            {% for ele in headlines %}
+                <div class='board_list board_list_notice' onclick="location.href='/mobile/board/detail/{{ ele.id }}';">
+                    <p id='no'>공지</p>
+                    <p id='title'>{{ ele.title|safe }}</p>
+                    <p id='name'>{{ ele.user.first_name }}</p>
+                    <p id='wdate'> | {{ ele.date_updated|date:"Y-m-d H:i:s" }}</p>
+                    <p id='count'>{{ ele.hits }}</p>
+                </div>
+            {% endfor %}
+            {% if list %}
+                {% for ele in list %}
+                    <div class='board_list' onclick="location.href='/mobile/board/detail/{{ ele.id }}';">
+                        <p id='no'>{{ ele.id }}</p>
+                        <p id='title'>{{ ele.title|safe }}</p>
+                        <p id='name'>{{ ele.user.first_name }}</p>
+                        <p id='wdate'> | {{ ele.date_updated|date:"Y-m-d H:i:s" }}</p>
+                        <p id='count'>{{ ele.hits }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center" style="height:40px">게시물이 없습니다.</div>
+            {% endif %}
+            {% include "mobile/board_bottom.html" %}
+        {% else %}
+            권한이 없습니다.
+            <script>
+                $("document").ready(function(){
+                    $('#LoginModal').modal('show');
+                });
+            </script>
+        {% endif %}
+    </div>
+{% endblock %}

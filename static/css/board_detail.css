@@ -1,14 +1,6 @@
-#container #aside {position:relative;float:left;width:250px;margin: 0;}
-#container #aside #div_aside_submenu {background-color:#fafafa;margin:10px}
-#container #aside #div_aside_submenu #p_submenu_title {font-size: 18px;font-weight: bold;line-height: 55px;border-bottom: 1px solid #eee;background-color: #2a84bf;color: #fff;padding-left: 20px;margin-bottom: 15px;}
-#container #aside #div_aside_submenu #p_submenu_title i {font-size: 18px;color: #ccc;}
-#container #aside #div_aside_submenu .li_submenu_list {color:#666;font-size: 14px;margin-left: 20px;margin-bottom: 15px;cursor: pointer}
-#container #aside #div_aside_submenu .li_submenu_list:hover {color:#000}
-#container #aside #div_aside_submenu .li_submenu_list i {font-size: 14px;color: #ccc;}
-
 #container #content{float:right;position:relative;width:870px;height:100%;margin:0;}
 #container #content .div_list_title { border-bottom: 2px solid #aaa;padding: 5px; }
-#container #content .div_list_title .span_title_sub {font-weight:bold;font-size: 14px;color: #e67e22;}
+#container #content .div_list_title .span_title_sub {font-weight:bold;font-size: 14px;color: #183173;}
 #container #content .div_contents_body {padding: 30px;}
 #container #content .div_contents_body .p_body_title {font-size: 20px;font-weight: bold;margin-bottom: 10px;}
 #container #content .div_contents_body .p_body_font {position: relative;float: right;z-index: 99;}
@@ -20,11 +12,12 @@
     font-weight: normal;letter-spacing: normal;word-wrap: break-word;background: 0;border: 0;border-radius: 0;border-top: 1px solid #eee;margin-top: 10px;padding-top: 15px;}
 #container #content .div_contents_body .p_body_con pre img {max-width:100%;max-height:500px;margin-bottom: 30px;}
 #container #content .div_contents_body .btn {margin-bottom:10px}
-#container #content .div_contents_body #div_comment_input {background-color: #fafafa;border: 1px solid #eee;margin: 10px;margin-top: 10px;padding: 20px 30px 30px 30px;}
+#container #content .div_contents_body #div_comment_input {position: relative;background-color: #fafafa;border: 1px solid #eee;margin: 10px;margin-top: 10px;padding: 20px 30px 30px 30px;}
 #container #content .div_contents_body #div_comment_input #p_comment_length {float: right;color: #999;}
 #container #content .div_contents_body #div_comment_input #p_comment_title {margin-bottom: 5px;font-size: 13px;font-weight: bold;}
-#container #content .div_contents_body #div_comment_input #textarea_comment_txt {border-radius: 0;width: 650px;float: left;padding: 5px;}
-#container #content .div_contents_body #div_comment_input #btn_comment_write {margin-left: 10px;width: 68px;height: 72px;border-radius: 0;}
+#container #content .div_contents_body #div_comment_input .div_textarea_comment_txt {position: relative;left: 0;margin-right: 75px;}
+#container #content .div_contents_body #div_comment_input #textarea_comment_txt {border-radius: 0;padding: 5px;}
+#container #content .div_contents_body #div_comment_input #btn_comment_write {position: relative;width: 68px;height: 72px;border-radius: 0;float: right;}
 #container #content .div_contents_body .div_comment_list .p_comment_title { margin-bottom: 5px;font-size: 14px;  font-weight: bold;margin-top: 30px;color: #d35400; }
 #container #content .div_contents_body .div_comment_list {margin: 10px;padding: 0px 30px 0px 30px;border-bottom: 1px solid #ddd;}
 #container #content .div_contents_body .div_comment_list .div_list_comment { border-top: 1px solid #ddd; padding: 20px 0; }

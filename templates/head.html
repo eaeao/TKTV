@@ -5,11 +5,14 @@
     <title>{{ getMain.mainImg.title }}</title>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/focuspoint.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/xeicon.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/xeicon.css">
     <link rel="stylesheet" type="text/css" href="/static/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/{{ appname }}.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.simplyscroll.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/{{ appname }}.css?v=170606_02">
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.simplyscroll.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div id="wrap">
@@ -18,19 +21,17 @@
     <div id="top_menu">
         <div id="content">
             <ul id="ul_top_quick">
-                <li onclick="location.href='/page/28';">제보하기</li>
-                <li>광고문의</li>
+                <li onclick="location.href='/form/28';">제보하기</li>
+                <li onclick="location.href='/form/31';">광고문의</li>
                 {% if user.id %}
                     <li role="presentation" class="dropdown navbar-right" id="li_top_profile" style="float:right">
                         <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                            <img id="img_profile_usericon" src="{{ user.get_profile.src.url }}">
+                            <img id="img_profile_usericon" src="{{ user.profile.src.url }}">
                             <span id="span_profile_username">{{ user.first_name }}</span>
                             <span id="span_profile_drop">▼</span>
                         </a>
                         <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-                            {#                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a></li>#}
-                            {#                            <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a></li>#}
-                            {% if user.get_profile.grade.level == 10 %}<li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/" target="_blank">관리자 페이지</a></li>{% endif %}
+                            {% if user.profile.grade.level == 10 %}<li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/" target="_blank">관리자 페이지</a></li>{% endif %}
                             <li role="presentation" class="divider"></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/user/logout/">로그아웃</a></li>
                         </ul>
@@ -71,7 +72,7 @@
             <ul id="ul_mainmenu_list">
                 {% for mm in getMain.main_menu %}
                     <li class="dropdown">
-                        <a id="dLabel" role="button" data-target="#" href="{{ mm.get_link }}">{{ mm.name }}</a>
+                        <a id="dLabel_{{ mm.order }}" role="button" data-target="#" href="{{ mm.get_link }}">{{ mm.name }}</a>
                         {% if mm.get_submenu %}
                             <div id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
                                 <ul>
@@ -85,7 +86,7 @@
                 {% endfor %}
             </ul>
             <div id="div_mainmenu_search">
-                <form method="get">
+                <form method="get" action="/search/">
                     <input type="text" class="form-control" id="input_search_txt" name="query" placeholder="검색">
                     <button id="btn_search_click"><i class="xe-magnifier"></i></button>
                 </form>
@@ -103,14 +104,14 @@
         <div id="content">
             <ul>
                 <li class="li_bottom_list"><img src="/static/img/main/bottom_logo.png"></li>
-                <li class="li_bottom_list"><span class="span_bottom_btn click">회사소개</span></li>
-                <li class="li_bottom_list"><span class="span_bottom_btn click">이용약관</span></li>
-                <li class="li_bottom_list"><span class="span_bottom_btn click">개인정보보호정책</span></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click" onclick="location.href='/page/1';">회사소개</span></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click" onclick="location.href='/page/1';">이용약관</span></li>
+                <li class="li_bottom_list"><span class="span_bottom_btn click" onclick="location.href='/page/1';">개인정보보호정책</span></li>
                 <li class="li_bottom_list"><span class="span_bottom_btn click">RSS</span></li>
             </ul>
             <p class="p_bottom_intro">MBC 선정 좋은한국인대상 수상, 사회봉사부문 신지식인 선정, TBC 선정 자랑스런 대경인상 수상자 운영</p>
-            <p class="p_bottom_info">상호: TKTV인터넷신문.방송, 발행인: 이종민,  대표전화: 070-8637-2675 / 010-2881-8486  팩스: 053-289-1052<br/>
-                등록번호: 대구 아00139 , 대구시 중구 동인동1가 382-6 대웅빌딩 3F, 기사제보 이메일 jmr10290@hanmail.net</p>
+            <p class="p_bottom_info">상호: TKTV인터넷신문.방송, 발행인: 이종면,  대표전화: 1544-7548 / 010-2881-8486  팩스: 0504-011-8486<br/>
+                등록번호: 대구 아00139 , 대구광역시 수성구 지산로59길 (2F) TKTV, 기사제보 이메일 jmr10290@daum.net </p>
         </div>
     </div>
     <!-- //Main_menu -->
@@ -184,5 +185,13 @@
     $('.btn_close').click(function(){ $('.modal').modal('hide'); });
     $('#LoginModal #come_from').val(location.href);
 </script>
+{% if not user.is_superuser %}
+    <script type="text/javascript" src="http://wcs.naver.net/wcslog.js"></script>
+    <script type="text/javascript">
+        if(!wcs_add) var wcs_add = {};
+        wcs_add["wa"] = "17b883e9a1c823";
+        wcs_do();
+    </script>
+{% endif %}
 </body>
 </html>
